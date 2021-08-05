@@ -1,6 +1,7 @@
 'use strict'
-
-const {db, models: {User} } = require('../server/db')
+const axios = require('axios')
+const {db, models: {User, Wine} } = require('../server/db')
+const apiKey = require('../secret')
 
 /**
  * seed - this function clears the database, updates tables to
@@ -10,11 +11,26 @@ async function seed() {
   await db.sync({ force: true }) // clears db and matches models to tables
   console.log('db synced!')
 
+  const response = (await axios.get(`https://api.spoonacular.com/food/wine/recommendation?apiKey=${apiKey}&wine=merlot&number=20`)).data;
+  const wines = response.recommendedWines;
+  
+
   // Creating Users
   const users = await Promise.all([
     User.create({ username: 'cody', password: '123' }),
     User.create({ username: 'murphy', password: '123' }),
   ])
+
+  await Promise.all(wines.map(wine => Wine.create({
+    title: wine.title,
+    description: wine.description,
+    price: wine.price,
+    imageUrl: wine.imageUrl,
+    averageRating: wine.averageRating,
+    ratingCount: wine.ratingCount,
+    score: wine.score,
+    link: wine.link
+  })))
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
