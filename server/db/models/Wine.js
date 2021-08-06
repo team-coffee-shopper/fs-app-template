@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { STRING, DECIMAL } = Sequelize;
+const { STRING, DECIMAL, TEXT } = Sequelize;
 const db = require('../db');
 
 const Wine = db.define('wine', {
@@ -8,7 +8,7 @@ const Wine = db.define('wine', {
         alowNull: false
     },
     description: {
-        type: STRING,
+        type: TEXT,
         alowNull: false
     },
     price: {

@@ -1861,7 +1861,7 @@ __webpack_require__.r(__webpack_exports__);
 
 class App extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   componentDidMount() {
-    this.props.fetchMerlotWines();
+    this.props.fetchWines();
   }
 
   render() {
@@ -1875,7 +1875,7 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchMerlotWines: () => dispatch((0,_store__WEBPACK_IMPORTED_MODULE_4__.fetchMerlotWines)())
+    fetchWines: () => dispatch((0,_store__WEBPACK_IMPORTED_MODULE_4__.fetchWines)())
   };
 };
 
@@ -2177,27 +2177,40 @@ class Products extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 
   render() {
     const {
-      merlotWines
+      wines
     } = this.props;
-    console.log(merlotWines);
+    console.log(wines);
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "products-list"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, " Product List "));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, " Wines List "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "wines-outer"
+    }, wines.map(wine => {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "wine-card-inner",
+        key: wine.id
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "img"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+        src: wine.imageUrl
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "wine-title"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, " ", wine.title, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, " ", wine.description, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h4", null, " ", wine.price, " ")));
+    })));
   }
 
 }
 
 const mapStateToProps = ({
-  merlotWines
+  wines
 }) => {
   return {
-    merlotWines
+    wines
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchMerlotWines: () => dispatch((0,_store_wines__WEBPACK_IMPORTED_MODULE_2__.fetchMerlotWines)())
+    fetchWines: () => dispatch((0,_store_wines__WEBPACK_IMPORTED_MODULE_2__.fetchWines)())
   };
 };
 
@@ -2325,7 +2338,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "logout": () => (/* reexport safe */ _auth__WEBPACK_IMPORTED_MODULE_3__.logout),
 /* harmony export */   "me": () => (/* reexport safe */ _auth__WEBPACK_IMPORTED_MODULE_3__.me),
 /* harmony export */   "_fetchWines": () => (/* reexport safe */ _wines__WEBPACK_IMPORTED_MODULE_4__._fetchWines),
-/* harmony export */   "fetchMerlotWines": () => (/* reexport safe */ _wines__WEBPACK_IMPORTED_MODULE_4__.fetchMerlotWines)
+/* harmony export */   "fetchWines": () => (/* reexport safe */ _wines__WEBPACK_IMPORTED_MODULE_4__.fetchWines)
 /* harmony export */ });
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var redux_logger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-logger */ "./node_modules/redux-logger/dist/redux-logger.js");
@@ -2342,7 +2355,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const reducer = (0,redux__WEBPACK_IMPORTED_MODULE_5__.combineReducers)({
   auth: _auth__WEBPACK_IMPORTED_MODULE_3__.default,
-  winesMerlot: _wines__WEBPACK_IMPORTED_MODULE_4__.default
+  wines: _wines__WEBPACK_IMPORTED_MODULE_4__.default
 });
 const middleware = (0,redux_devtools_extension__WEBPACK_IMPORTED_MODULE_2__.composeWithDevTools)((0,redux__WEBPACK_IMPORTED_MODULE_5__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_1__.default, (0,redux_logger__WEBPACK_IMPORTED_MODULE_0__.createLogger)({
   collapsed: true
@@ -2364,26 +2377,23 @@ const store = (0,redux__WEBPACK_IMPORTED_MODULE_5__.createStore)(reducer, middle
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "_fetchWines": () => (/* binding */ _fetchWines),
-/* harmony export */   "fetchMerlotWines": () => (/* binding */ fetchMerlotWines),
+/* harmony export */   "fetchWines": () => (/* binding */ fetchWines),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 const _FETCH_WINES = "_FETCH_WINES";
-function _fetchWines(merlotWines) {
+function _fetchWines(wines) {
   return {
     type: _FETCH_WINES,
-    merlotWines
+    wines
   };
 }
-const fetchMerlotWines = () => {
+const fetchWines = () => {
   return async dispatch => {
-    //const merlotWinesUrl = 'https:
-    //api.spoonacular.com/food/wine/recommendation?apiKey=c92390ad3d4f4c4b98aff586bce81688&wine=merlot&number=20';
-    //const merlotWines = (await axios.get(merlotWinesUrl)).data;
-    console.log(merlotWines);
-    dispatch(_fetchWines(merlotWines));
+    const wines = (await axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/wines')).data;
+    dispatch(_fetchWines(wines));
   };
 };
 const initialState = [];
@@ -2391,7 +2401,7 @@ const initialState = [];
 const wineReducer = (state = initialState, action) => {
   switch (action.type) {
     case _FETCH_WINES:
-      return action.merlotWines;
+      return action.wines;
 
     default:
       return state;
