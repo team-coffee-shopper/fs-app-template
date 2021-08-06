@@ -11,8 +11,9 @@ export function _fetchWines (merlotWines) {
 
 export const fetchMerlotWines = () => {
     return async(dispatch) => {
-        //const merlotWinesUrl = 'https://api.spoonacular.com/food/wine/recommendation?apiKey=c92390ad3d4f4c4b98aff586bce81688&wine=merlot&number=20';
-        const merlotWines = (await axios.get(merlotWinesUrl)).data;
+        //const merlotWinesUrl = 'https:
+        //api.spoonacular.com/food/wine/recommendation?apiKey=c92390ad3d4f4c4b98aff586bce81688&wine=merlot&number=20';
+        //const merlotWines = (await axios.get(merlotWinesUrl)).data;
         console.log(merlotWines)
         dispatch(_fetchWines(merlotWines))
     }
