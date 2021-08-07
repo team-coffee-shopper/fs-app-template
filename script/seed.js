@@ -1,7 +1,7 @@
 'use strict'
 const axios = require('axios')
 const {db, models: {User, Wine} } = require('../server/db')
-const apiKey = require('../secret')
+const apiKey = require('../secrets.js')
 
 /**
  * seed - this function clears the database, updates tables to
@@ -11,8 +11,10 @@ async function seed() {
   await db.sync({ force: true }) // clears db and matches models to tables
   console.log('db synced!')
 
-  const response = (await axios.get(`https://api.spoonacular.com/food/wine/recommendation?apiKey=${apiKey}&wine=merlot&number=20`)).data;
+  const response = (await axios.get(`https://api.spoonacular.com/food/wine/recommendation?apiKey=${process.env.API_KEY}&wine=merlot&number=20`)).data;
+  console.log(response)
   const wines = response.recommendedWines;
+
   
 
   // Creating Users
