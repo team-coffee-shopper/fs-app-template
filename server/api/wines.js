@@ -7,9 +7,8 @@ module.exports = router
 router.get('/', async(req, res, next) => {
     try {
       const wines = await Wine.findAll();
-      console.log(Wine.findAll())
       res.send(wines);
     } catch(ex){
-      console.log(ex)
+      next(ex)
     }
   })

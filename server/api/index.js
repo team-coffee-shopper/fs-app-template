@@ -3,9 +3,11 @@ module.exports = router
 
 router.use('/users', require('./users'))
 router.use('/wines', require('./wines'))
+router.use('/wines', require('./singleWine'))
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')
   error.status = 404
   next(error)
 })
+
