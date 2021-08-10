@@ -7,15 +7,19 @@ const apiKey = require('../secrets.js')
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
  */
+
+// Function to generate a random number between 30 and 50 to display In Stock number
+const inStock = () => {
+  return Math.floor(Math.random()*30 + 20)
+}
+
 async function seed() {
   await db.sync({ force: true }) // clears db and matches models to tables
   console.log('db synced!')
 
   const response = (await axios.get(`https://api.spoonacular.com/food/wine/recommendation?apiKey=${process.env.API_KEY}&wine=merlot&number=20`)).data;
-  console.log(response)
   const wines = response.recommendedWines;
 
-  
 
   // Creating Users
   const users = await Promise.all([
@@ -23,6 +27,7 @@ async function seed() {
     User.create({ username: 'murphy', password: '123' }),
   ])
 
+  //Ceeding Wines
   await Promise.all(wines.map(wine => Wine.create({
     title: wine.title,
     description: wine.description,
@@ -31,7 +36,8 @@ async function seed() {
     averageRating: wine.averageRating,
     ratingCount: wine.ratingCount,
     score: wine.score,
-    link: wine.link
+    link: wine.link,
+    stock: inStock()
   })))
 
   console.log(`seeded ${users.length} users`)
