@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Routes from './Routes'
 import Products from './components/Products'
 import { fetchWines } from './store';
+import Cart from './components/Cart'
 import { connect } from 'react-redux';
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
         <Navbar />
         <Routes />
         <Route path='/products' component={ Products } />
+        <Route path='/cart' component={Cart} />
       </div>
     )
   }
