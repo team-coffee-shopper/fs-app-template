@@ -1,10 +1,9 @@
 const Sequelize = require('sequelize')
-Const { STRING, UUID, UUID4 } = Sequelize;
+const { STRING, UUID, UUIDV4 } = Sequelize;
 const db = require('../db')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const axios = require('axios');
-const { STRING } = require('sequelize')
 
 const SALT_ROUNDS = 5;
 
@@ -31,7 +30,6 @@ const User = db.define('user', {
   },
   email: {
     type: STRING,
-    allowNull: false,
     validate: {
         notEmpty: true,
         isEmail: true
