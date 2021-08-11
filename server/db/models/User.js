@@ -43,6 +43,9 @@ const User = db.define('user', {
   password: {
     type: STRING,
     allowNull: false
+  },
+  phoneNumber: {
+    type: STRING
   }
 })
 
