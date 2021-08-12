@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { adjustItemQty, removeFromCart, } from "../store/cart";
 
 const ItemInCart = ({ item, adjustQty, removeFromCart }) => {
-    // const [input, setInput] = useState(item.qty);
-    let setInput = useState(item.qty)
+    const [ input, setInput ] = useState(item.qty);
+    // let setInput = useState(item.qty)
 
     const onChangeHandler = (evt) => {
         setInput(evt.target.value);

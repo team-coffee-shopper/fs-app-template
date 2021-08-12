@@ -2081,21 +2081,22 @@ __webpack_require__.r(__webpack_exports__);
 const Cart = ({
   cart
 }) => {
-  //useState(0) returns a tuple where the first parameter 
-  //count is the current state of the counter and setCounter 
-  //is the method that will allow us to update the counter's state.
-  // const [totalPrice, setTotalPrice] = useState(0);
-  // const [totalItems, setTotalItems] = useState(0);
-  // useEffect(() => {
-  //     let items = 0;
-  //     let price = 0;
-  //     cart.forEach((item) => {
-  //         items += item.qty;
-  //         price += item.qty * item.price;
-  //     });
-  //     setTotalItems(items);
-  //     setTotalPrice(price);
-  // }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems]);
+  // useState(0) returns a tuple where the first parameter 
+  // count is the current state of the counter and setCounter 
+  // is the method that will allow us to update the counter's state.
+  const [totalPrice, setTotalPrice] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+  const [totalItems, setTotalItems] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    let items = 0;
+    let price = 0;
+    cart.forEach(item => {
+      items += item.qty;
+      price += item.qty * item.price;
+    });
+    setTotalItems(items);
+    setTotalPrice(price);
+  }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems]);
+  console.log(cart);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, cart.map(item => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemInCart__WEBPACK_IMPORTED_MODULE_2__.default, {
     key: item.id,
     item: item
@@ -2104,7 +2105,7 @@ const Cart = ({
 
 const mapStateToProps = state => {
   return {
-    cart: state.cart
+    cart: state.cart.cart
   };
 };
 
@@ -2175,8 +2176,7 @@ const ItemInCart = ({
   adjustQty,
   removeFromCart
 }) => {
-  // const [input, setInput] = useState(item.qty);
-  let setInput = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(item.qty);
+  const [input, setInput] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(item.qty); // let setInput = useState(item.qty)
 
   const onChangeHandler = evt => {
     setInput(evt.target.value);
@@ -2502,7 +2502,43 @@ const loadCurrentItem = item => {
 // import fetchWines from './wines';
 
 const INITIAL_STATE = {
-  cart: [],
+  cart: [{
+    "id": 1,
+    "title": "Goldschmidt Vineyard Alexander Valley Chelsea Merlot",
+    "description": "Beautiful red raspberry, black cherry, and spice aromas. Full and round with plum, red currant, blackberry, and bay leaf flavors. The soft tannins give this wine a velvety smoothness and the chocolatey finish just goes on and on.",
+    "price": "$19.99",
+    "imageUrl": "https://spoonacular.com/productImages/503936-312x231.jpg",
+    "averageRating": "0.96",
+    "ratingCount": "10",
+    "score": "0.927741935483871",
+    "link": "https://click.linksynergy.com/deeplink?id=*QCiIS6t4gA&mid=2025&murl=https%3A%2F%2Fwww.wine.com%2Fproduct%2Fgoldschmidt-vineyard-alexander-valley-chelsea-merlot-2018%2F737409",
+    "createdAt": "2021-08-12T01:22:13.180Z",
+    "updatedAt": "2021-08-12T01:22:13.180Z"
+  }, {
+    "id": 2,
+    "title": "Maddalena Merlot",
+    "description": "Maddalena Merlot offers aromas of ripe fruit and oak spice with hints of vanilla and anise. Ripe fruit flavors include bright plum and raspberry. Fruit flavors greet the palate and soft tannins frame the fresh texture that coats the mouth.",
+    "price": "$18.99",
+    "imageUrl": "https://spoonacular.com/productImages/491394-312x231.jpg",
+    "averageRating": "0.96",
+    "ratingCount": "8",
+    "score": "0.9199999999999999",
+    "link": "https://click.linksynergy.com/deeplink?id=*QCiIS6t4gA&mid=2025&murl=https%3A%2F%2Fwww.wine.com%2Fproduct%2Fmaddalena-merlot-2016%2F604022",
+    "createdAt": "2021-08-12T01:22:13.181Z",
+    "updatedAt": "2021-08-12T01:22:13.181Z"
+  }, {
+    "id": 3,
+    "title": "Peju Province Merlot",
+    "description": "Deep ruby in color, the 2016 Merlot offers fragrant, layered aromas of juicy pomegranate, baking spice, and a hint of cedar. Lush fruits of cherry and blackberry envelop the palate. Soft hints of toasted almond and vanilla culminate with an elegant finish. Delicious now, this Merlot will continue to mature for the next 6-8 years.Blend: 95% Merlot, 4% Cabernet Sauvignon, 1% Petit Sirah",
+    "price": "$37.99",
+    "imageUrl": "https://spoonacular.com/productImages/447335-312x231.jpg",
+    "averageRating": "0.9",
+    "ratingCount": "5",
+    "score": "0.8375",
+    "link": "https://click.linksynergy.com/deeplink?id=*QCiIS6t4gA&mid=2025&murl=https%3A%2F%2Fwww.wine.com%2Fproduct%2Fpeju-province-merlot-2010%2F133456",
+    "createdAt": "2021-08-12T01:22:13.182Z",
+    "updatedAt": "2021-08-12T01:22:13.182Z"
+  }],
   currentItem: null
 };
 
@@ -2578,28 +2614,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+ // import auth from './auth'
+// import wines from './wines'
+// import cart from './cart'
 
 
 
-
-/*
-
-import auth from './auth'
-import wineReducer from './wines'
-import cartReducer from './cart'
-const reducer = combineReducers({
-  auth,
-  wineReducer,
-  cartReducer
-})
-
-*/
 
 const reducer = (0,redux__WEBPACK_IMPORTED_MODULE_6__.combineReducers)({
   auth: _auth__WEBPACK_IMPORTED_MODULE_3__.default,
   wines: _wines__WEBPACK_IMPORTED_MODULE_4__.default,
   cart: _cart__WEBPACK_IMPORTED_MODULE_5__.default
-});
+}); // const reducer = combineReducers({ 
+//   auth,
+//   wines,
+//   cart
+// })
+
 const middleware = (0,redux_devtools_extension__WEBPACK_IMPORTED_MODULE_2__.composeWithDevTools)((0,redux__WEBPACK_IMPORTED_MODULE_6__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_1__.default, (0,redux_logger__WEBPACK_IMPORTED_MODULE_0__.createLogger)({
   collapsed: true
 })));

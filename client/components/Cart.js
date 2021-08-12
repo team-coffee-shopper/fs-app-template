@@ -5,26 +5,26 @@ import ItemInCart from "./ItemInCart";
 const Cart = ({ cart }) => {
 
 
-    //useState(0) returns a tuple where the first parameter 
-    //count is the current state of the counter and setCounter 
-    //is the method that will allow us to update the counter's state.
+    // useState(0) returns a tuple where the first parameter 
+    // count is the current state of the counter and setCounter 
+    // is the method that will allow us to update the counter's state.
 
-    // const [totalPrice, setTotalPrice] = useState(0);
-    // const [totalItems, setTotalItems] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [totalItems, setTotalItems] = useState(0);
 
-    // useEffect(() => {
-    //     let items = 0;
-    //     let price = 0;
+    useEffect(() => {
+        let items = 0;
+        let price = 0;
 
-    //     cart.forEach((item) => {
-    //         items += item.qty;
-    //         price += item.qty * item.price;
-    //     });
+        cart.forEach((item) => {
+            items += item.qty;
+            price += item.qty * item.price;
+        });
 
-    //     setTotalItems(items);
-    //     setTotalPrice(price);
-    // }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems]);
-
+        setTotalItems(items);
+        setTotalPrice(price);
+    }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems]);
+    console.log(cart)
     return (
         <div>
             <div>
@@ -48,7 +48,7 @@ const Cart = ({ cart }) => {
 
 const mapStateToProps = (state) => {
     return {
-        cart: state.cart,
+        cart: state.cart.cart,
     };
 };
 
