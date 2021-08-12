@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchWines } from '../store/wines'
+import { fetchWines } from '../store/wines';
+import { addToCart } from '../store/cart'
 
 class Products extends Component {
     constructor() {
@@ -26,6 +27,11 @@ class Products extends Component {
                                         <p> { wine.description } </p>
                                         <h4> { wine.price } </h4>
                                     </div>
+                                    <button
+                                        onClick={() => addToCart(wine.id)}
+                                        >
+                                        Add To Cart
+                                    </button>
   
                                 </div>
                             )
@@ -46,7 +52,8 @@ const mapStateToProps = ({ wines }) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchWines: () => dispatch(fetchWines())
+        fetchWines: () => dispatch(fetchWines()),
+        addToCart: (id) => dispatch(addToCart(id))
     }
 }
 
