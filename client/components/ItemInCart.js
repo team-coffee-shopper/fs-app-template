@@ -12,15 +12,21 @@ const ItemInCart = ({ item, adjustQty, removeFromCart }) => {
     };
 
     return (
-        <div className="list-group">
-            <img src={item.image} alt={item.title} />
+        <div>
+            <img src={item.imageUrl} alt={item.title} />
             <div>
                 <p>{item.title}</p>
                 <p>{item.description}</p>
                 <p>$ {item.price}</p>
+                <p>Created at: {item.createdAt}</p>
+                <p>Last updated: {item.updatedAt}</p>
+                <p>Average customer rating: {item.averageRating}</p>
+                <p>across {item.ratingCount} ratings</p>
+                <a href={item.link}>Link</a>
+                <p>$ {item.score}</p>
             </div>
             <div>
-                <div className="quantity-display">
+                <div>
                     <label htmlFor="qty">Qty</label>
                     <input
                         min="1"

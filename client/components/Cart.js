@@ -10,7 +10,7 @@ const Cart = ({ cart }) => {
     // is the method that will allow us to update the counter's state.
 
     const [totalPrice, setTotalPrice] = useState(0);
-    const [totalItems, setTotalItems] = useState(0);
+    const [totalQty, setTotalQty] = useState(0);
 
     useEffect(() => {
         let items = 0;
@@ -21,10 +21,12 @@ const Cart = ({ cart }) => {
             price += item.qty * item.price;
         });
 
-        setTotalItems(items);
+        setTotalQty(items);
         setTotalPrice(price);
-    }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems]);
-    console.log(cart)
+    }, [cart, totalPrice, totalQty, setTotalPrice, setTotalQty]);
+    
+    //console.log('state.cart.cart: ', cart)
+
     return (
         <div>
             <div>
@@ -35,7 +37,7 @@ const Cart = ({ cart }) => {
             <div>
                 <h4>Cart Summary</h4>
                 <div>
-                    <span>TOTAL: {totalItems} items</span>
+                    <span>Your total: {totalQty} items</span>
                     <span>$ {totalPrice}</span>
                 </div>
                 <button>
