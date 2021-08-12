@@ -18,7 +18,7 @@ class App extends Component {
         <Navbar />
         <Routes />
         <Route path='/products' component={ Products } />
-        <Route path='/cart' component={Cart} />
+        <Route path='/cart' component={ Cart } />
       </div>
     )
   }

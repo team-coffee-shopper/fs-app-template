@@ -2502,7 +2502,6 @@ const loadCurrentItem = item => {
 // import fetchWines from './wines';
 
 const INITIAL_STATE = {
-  // wines: fetchWines(),
   cart: [],
   currentItem: null
 };
@@ -2510,7 +2509,7 @@ const INITIAL_STATE = {
 const cartReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      // Great Item data from wines array
+      // Get Item data from wines array
       const item = state.wines.find(product => product.id === action.payload.id); // Check if Item is in cart already
 
       const inCart = state.cart.find(item => item.id === action.payload.id ? true : false);
