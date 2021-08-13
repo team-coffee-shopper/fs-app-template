@@ -8,18 +8,18 @@ const { INTEGER, DECIMAL, UUID, UUIDV4} = Sequelize;
 const db = require('../db');
 
 const OrderItem = db.define('orderItem', {
-    id: {
-        type: UUID,
-        defaultValue: UUIDV4,
-        primaryKey: true,
-      },
-   price: {
-       type: DECIMAL,
-       allowNull: false,
-       validate: {
-           notEmpty: true
-       }
-   },
+    // id: {
+    //     type: UUID,
+    //     defaultValue: UUIDV4,
+    //     primaryKey: true,
+    //   },
+//    price: {
+//        type: DECIMAL,
+//        allowNull: false,
+//        validate: {
+//            notEmpty: true
+//        }
+//    },
    quantity: {
         type: INTEGER,
         allowNull: false,

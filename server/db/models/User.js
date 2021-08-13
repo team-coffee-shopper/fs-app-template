@@ -9,12 +9,12 @@ const { BOOLEAN } = require('sequelize');
 const SALT_ROUNDS = 5;
 
 const User = db.define('user', {
-  id: {
-    type: UUID,
-    defaultValue: UUIDV4,
-    primaryKey: true
+  // id: {
+  //   type: UUID,
+  //   defaultValue: UUIDV4,
+  //   primaryKey: true
 
-  },
+  // },
   username: {
     type: STRING,
     allowNull: false,

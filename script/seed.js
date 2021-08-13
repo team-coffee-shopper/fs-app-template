@@ -1,6 +1,6 @@
 'use strict'
 const axios = require('axios')
-const {db, models: {User, Wine} } = require('../server/db')
+const {db, models: {User, Wine, Order, OrderItem} } = require('../server/db')
 const apiKey = require('../secrets.js')
 
 /**
@@ -23,11 +23,11 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
+    User.create({ username: 'cody', password: '123', firstName: 'Cody', lastName: 'Washington', email: 'cody@gmail.com',  }),
+    User.create({ username: 'murphy', password: '123', firstName: 'Murphy', lastName: 'Goldstein', email: 'murph@gmail.com', }),
   ])
 
-  //Ceeding Wines
+  //Seeding Wines
   await Promise.all(wines.map(wine => Wine.create({
     title: wine.title,
     description: wine.description,
@@ -39,6 +39,16 @@ async function seed() {
     link: wine.link,
     stock: inStock()
   })))
+  const orders = await Promise.all([
+    Order.create({ paymentMethod: 'visa', userId: 1 }),
+    Order.create({ paymentMethod: 'visa', userId: 2 })
+  ]) 
+
+  const orderItems = await Promise.all([
+    OrderItem.create({ orderId: 2, wineId: 2 }),
+    OrderItem.create({ orderId: 1, wineId: 1 })
+  ]) 
+
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
