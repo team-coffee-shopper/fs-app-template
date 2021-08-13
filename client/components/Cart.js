@@ -3,9 +3,7 @@ import { connect } from "react-redux";
 import ItemInCart from "./ItemInCart";
 
 const Cart = ({ cart }) => {
-
-
-
+    
     // useState(0) returns a tuple where the first parameter 
     // count is the current state of the counter and setCounter 
     // is the method that will allow us to update the counter's state.
@@ -24,28 +22,27 @@ const Cart = ({ cart }) => {
 
         setTotalQty(items);
         setTotalPrice(price);
-    }, [cart, totalPrice, totalQty, setTotalPrice, setTotalQty]);
-
-
-
-    console.log('yo')
-    console.log('cart: ', cart)
+    }, [cart.cart, totalPrice, totalQty, setTotalPrice, setTotalQty]);
+    
+    console.log('Cart.js cart: ', cart)
 
     return (
         <div>
+            <p>Items</p>
+            <p>Quantity</p>
+            <p>Price</p>
             <div>
                 {cart.cart.map((item) => (
                     <ItemInCart key={item.id} item={item} />
                 ))}
             </div>
             <div>
-                <h4>Cart Summary</h4>
                 <div>
-                    <span>Your total: {totalQty} items</span>
-                    <span>$ {totalPrice}</span>
+                    <span>{totalQty} items</span>
+                    <span>TOTAL $ {totalPrice}</span>
                 </div>
                 <button>
-                    Proceed To Checkout
+                    Checkout
                 </button>
             </div>
         </div>
