@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchWines } from '../store/wines'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
+import { addToCart } from '../store/cart'
 
 class Products extends Component {
     constructor() {
