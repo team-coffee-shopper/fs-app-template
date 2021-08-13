@@ -63,9 +63,10 @@ class Products extends Component {
     }
 }
 
-const mapStateToProps = ({ wines }) => {
+const mapStateToProps = ({ wines, cart }) => {
     return {
-        wines
+        wines,
+        cart: cart.cart
     }
 }
 
