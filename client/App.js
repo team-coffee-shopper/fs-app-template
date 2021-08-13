@@ -3,6 +3,7 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar'
 import Routes from './Routes'
 import Products from './components/Products'
+import Footer from './components/Footer'
 import { fetchWines } from './store';
 import { connect } from 'react-redux';
 
@@ -16,7 +17,10 @@ class App extends Component {
       <div>
         <Navbar />
         <Routes />
-        <Route path='/products' component={ Products } />
+          <Switch> 
+            <Route path='/products' exact component={ Products } />
+          </Switch>
+          <Footer />
       </div>
     )
   }

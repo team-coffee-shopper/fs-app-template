@@ -2,31 +2,51 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
+
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>FS-App-Template</h1>
+  <div className = "nav-outer">
     <nav>
       {isLoggedIn ? (
-        <div>
+        <div className="navbar">
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
+          <div className="col-sm-4">
+            <Link to="/products">Shop</Link>
+          </div>
+          <div className="col-sm-4 text-md-center logo">     
+              <Link to="/">WIneCellar</Link>
+          </div>
+          <div className="col-sm-4 text-md-right">
+            <Link to="/cart"> 
+                <FontAwesomeIcon icon={ faShoppingCart } /> 
+            </Link>
+            <Link to="/profile">
+                <FontAwesomeIcon icon={ faUser } /> 
+            </Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
+          </div>
         </div>
       ) : (
-        <div>
+        <div className="navbar">
           {/* The navbar will show these links before you log in */}
-          <Link to="/">Home</Link>
-          <Link to="/products">Products</Link>
-          <Link to="/cart">Cart</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+          <div className="col-sm-4">
+              <Link to="/products">Shop</Link>
+          </div>
+          <div className="col-sm-4 text-md-center logo">     
+              <Link to="/">WIneCellar</Link>
+          </div>
+          <div  className="col-sm-4 text-md-right">
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Sign Up</Link>
+          </div>
         </div>
       )}
     </nav>
-    <hr />
   </div>
 )
 

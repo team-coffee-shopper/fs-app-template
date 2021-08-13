@@ -1,32 +1,50 @@
+// import { urlencoded } from 'express';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchWines } from '../store/wines'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 
 class Products extends Component {
     constructor() {
         super()
     }
-
     render() {
         const { wines } = this.props;
         console.log(wines)
         return (
-            <div className="products-list">
-                <h2> Wines List </h2>
+            <div className="container products-list">
+                <h2> Explore Our Products </h2>
                 <div className="wines-outer">
                     {
                         wines.map(wine => {
                             return (
                                 <div className="wine-card-inner" key= {wine.id}>
-                                    <div className="img">
-                                        <img src={wine.imageUrl}></img>
+                                    <div className="top" >
+                                        <div className="img"  style={{ 
+  backgroundImage: `url(${wine.imageUrl})`
+  }}>
+                                        </div>
                                     </div>
-                                    <div className="wine-title">
-                                        <h3> { wine.title } </h3>
-                                        <p> { wine.description } </p>
-                                        <h4> { wine.price } </h4>
+                                    <div className="bottom">
+                                        <div className="row">
+                                            <div className="col-9">
+                                                <h5> { wine.title } </h5>
+                                            </div>
+                                            <div className="col-3">
+                                                <p> { wine.price } </p>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-6">
+                                                <p>rating</p>
+                                            </div>
+                                            <div className="col-6 text-right">
+                                                <button><FontAwesomeIcon icon={ faCartPlus } /> </button>
+                                            </div>
+
+                                        </div>
                                     </div>
-  
                                 </div>
                             )
                         })
