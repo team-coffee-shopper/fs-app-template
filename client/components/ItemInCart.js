@@ -18,12 +18,10 @@ const ItemInCart = ({ item, adjustQty, removeFromCart }) => {
                 <p>{item.title}</p>
                 <p>{item.description}</p>
                 <p>$ {item.price}</p>
-                <p>Created at: {item.createdAt}</p>
-                <p>Last updated: {item.updatedAt}</p>
                 <p>Average customer rating: {item.averageRating}</p>
                 <p>across {item.ratingCount} ratings</p>
                 <a href={item.link}>Link</a>
-                <p>$ {item.score}</p>
+                
             </div>
             <div>
                 <div>
@@ -34,13 +32,12 @@ const ItemInCart = ({ item, adjustQty, removeFromCart }) => {
                         id="qty"
                         name="qty"
                         value={input}
+                        defaultValue="1"
                         onChange={onChangeHandler}
                     />
                 </div>
-                <button 
-                    onClick={() => removeFromCart(item.id)} 
-                >
-                Remove from cart
+                <button onClick={() => removeFromCart(item.id)} >
+                    Remove
                 </button>
             </div>
         </div>
@@ -55,4 +52,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(null, mapDispatchToProps)(ItemInCart);
-
