@@ -37,11 +37,10 @@ const ItemInCart = ({ item, adjustQty, removeFromCart }) => {
                         onChange={onChangeHandler}
                     />
                 </div>
-                <button onClick={() => removeFromCart(item.id)} >
-                    <img
-                        src="https://image.flaticon.com/icons/svg/709/709519.svg"
-                        alt="delete this"
-                    />
+                <button 
+                    onClick={() => removeFromCart(item.id)} 
+                >
+                Remove from cart
                 </button>
             </div>
         </div>
