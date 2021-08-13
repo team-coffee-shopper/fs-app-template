@@ -27,7 +27,7 @@ const ItemInCart = ({ item, adjustQty, removeFromCart }) => {
                 <div>
                     <label htmlFor="qty">Qty</label>
                     <input
-                        min="1"
+                        min="0"
                         type="number"
                         id="qty"
                         name="qty"
