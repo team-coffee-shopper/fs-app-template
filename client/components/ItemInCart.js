@@ -17,7 +17,7 @@ const ItemInCart = ({ item, adjustQty, removeFromCart }) => {
             <div>
                 <p>{item.title}</p>
                 <p>{item.description}</p>
-                <p>$ {item.price}</p>
+                <p>{item.price}</p>
                 <p>Average customer rating: {item.averageRating}</p>
                 <p>across {item.ratingCount} ratings</p>
                 <a href={item.link}>Link</a>
