@@ -41,6 +41,12 @@ class Products extends Component {
                                             </div>
                                             <div className="col-6 text-right">
                                                 <button><FontAwesomeIcon icon={ faCartPlus } /> </button>
+                                                
+                                                <button
+                                                    onClick={() => addToCart(wine.id)}
+                                                >
+                                                    Add To Cart
+                                                </button>
                                             </div>
 
                                         </div>
@@ -64,7 +70,8 @@ const mapStateToProps = ({ wines }) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchWines: () => dispatch(fetchWines())
+        fetchWines: () => dispatch(fetchWines()),
+        addToCart: (id) => dispatch(addToCart(id))
     }
 }
 
