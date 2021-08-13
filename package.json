@@ -31,6 +31,9 @@
     "sequelize": "^6.6.5"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "@babel/core": "^7.12.10",
     "@babel/preset-react": "^7.12.10",
     "@babel/register": "^7.12.10",
