@@ -4,12 +4,14 @@ import Navbar from './components/Navbar'
 import Routes from './Routes'
 import Products from './components/Products'
 import Footer from './components/Footer'
+import { _fetchCart } from './store/cart';
 import { fetchWines } from './store';
 import { connect } from 'react-redux';
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchWines();
+    _fetchCart();
 
   }
   render(){
@@ -17,9 +19,9 @@ class App extends Component {
       <div>
         <Navbar />
         <Routes />
-          <Switch> 
+          {/* <Switch> 
             <Route path='/products' exact component={ Products } />
-          </Switch>
+          </Switch> */}
           <Footer />
       </div>
     )
@@ -28,7 +30,8 @@ class App extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchWines: () => dispatch(fetchWines())
+    fetchWines: () => dispatch(fetchWines()),
+    fetchCart: _fetchCart
   }
 }
 

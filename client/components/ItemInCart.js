@@ -13,12 +13,15 @@ const ItemInCart = ({ cart,  adjustQty, removeFromCart}) => {
 
 
     console.log('CARTTT', cart)
+    console.log(cart.cart.length)
+   
     return (
         <ul>
             {
-              cart.length === 0 ? <h1>Hellooooo</h1> :
+              cart.cart.length === 0 ?
+              <h1>nooooo</h1> :
               cart.cart.map( orderItem =>(
-                  <li>
+                  <li key={ orderItem.id }>
                     <img src={orderItem.wine.imageUrl} alt={orderItem.wine.title} />
                     <div>
                       <p>{orderItem.wine.title}</p>
@@ -46,6 +49,7 @@ const ItemInCart = ({ cart,  adjustQty, removeFromCart}) => {
                      </button>
                    </div> 
                   </li>
+                  
                 
                 
                 // <img src={orderItem.wine.imageUrl} alt={orderItem.wine.title} />

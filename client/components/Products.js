@@ -41,11 +41,9 @@ class Products extends Component {
                                                 <p>rating</p>
                                             </div>
                                             <div className="col-6 text-right">
-                                                <button><FontAwesomeIcon icon={ faCartPlus } /> </button>
-                                                
                                                 <button
                                                     onClick={() => addToCart(auth.id, wine.id)}
-                                                >
+                                                ><FontAwesomeIcon icon={ faCartPlus } /> 
                                                 </button>
                                             </div>
 

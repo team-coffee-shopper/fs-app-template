@@ -50,6 +50,11 @@ form div {
 .navbar .svg-inline--fa.fa-w-18 {
   color: #ffffff;
 }
+span.items-in-cart {
+  position: absolute;
+  bottom: 1em;
+  left: 1.7em;
+}
 /* Remove after we insert a logo*/
 .col-sm-4.text-md-center.logo a {
   color: #a0a0a0;

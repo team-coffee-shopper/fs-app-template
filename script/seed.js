@@ -17,7 +17,7 @@ async function seed() {
   await db.sync({ force: true }) // clears db and matches models to tables
   console.log('db synced!')
 
-  const response = (await axios.get(`https://api.spoonacular.com/food/wine/recommendation?apiKey=${process.env.API_KEY}&wine=merlot&number=20`)).data;
+  const response = (await axios.get(`https://api.spoonacular.com/food/wine/recommendation?apiKey=${process.env.API_KEY}&wine=merlot&number=30`)).data;
   const wines = response.recommendedWines;
 
 

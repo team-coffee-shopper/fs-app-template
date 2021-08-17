@@ -1,13 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import { _fetchCart } from '../store/cart';
 import {logout} from '../store'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
+console.log()
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn, cart}) => (
   <div className = "nav-outer">
     <nav>
       {isLoggedIn ? (
@@ -21,7 +23,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           </div>
           <div className="col-sm-4 text-md-right">
             <Link to="/cart"> 
-                <FontAwesomeIcon icon={ faShoppingCart } /> 
+                <FontAwesomeIcon icon={ faShoppingCart } /><span className="items-in-cart"> { cart.cart.length ? cart.cart.length : 0} </span> 
             </Link>
             <Link to="/profile">
                 <FontAwesomeIcon icon={ faUser } /> 
@@ -55,7 +57,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.auth.id
+    isLoggedIn: !!state.auth.id,
+    cart: state.cart
   }
 }
 
@@ -63,7 +66,8 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
-    }
+    },
+    fetchCart: _fetchCart
   }
 }
 
