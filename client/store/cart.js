@@ -15,20 +15,20 @@ const LOAD_CURRENT_ITEM = "LOAD_CURRENT_ITEM";
 //******CART ACTIONS *******/
 
 export const fetchCart = (cart) => {
-    return {
-        type: FETCH_CART,
-        cart
-        }
-    }
+  return {
+    type: FETCH_CART,
+    cart
+  }
+}
 
 export const addToCart = (item) => {
-  console.log('addToCart: ', item)
-    return {
-        type: ADD_TO_CART,
-        payload: {
-            item
-        },
-    };
+  //console.log('addToCart: ', item)
+  return {
+    type: ADD_TO_CART,
+    payload: {
+        item
+    }
+  };
 };
 
 export const removeFromCart = (itemID) => {
@@ -59,10 +59,19 @@ export const loadCurrentItem = (item) => {
 
 //**********THUNK **********//
 
+export const _addToCart = (userId, itemId) => {
+    return async(dispatch) => {
+        await axios.post(`/api/addtocart/${userId}/${itemId}`)
+        const wine = (await axios.get(`/api/wines/${itemId}`)).data
+        // dispatch(addToCart(orderItem.ItemId));
+        dispatch(addToCart(wine));
+    }
+};
 
-// export const _addToCart = (orderItem) => {
+
+// export const _addToCart = (item) => {
 //     return async(dispatch) => {
-//         const cart = (await axios.post(`/api/usercart/${orderItem.userId}`)).data
+//         const cart = (await axios.post(`/api/addusercart/${orderItem.userId}`)).data
 //         // dispatch(addToCart(orderItem.ItemId));
 //         dispatch(addToCart(cart));
 //     }
@@ -80,7 +89,7 @@ export const _fetchCart = (userId) => {
     return async(dispatch) => {
       try {
         const cart = (await axios.get(`/api/usercart/${userId}`)).data
-        console.log('I AM CART',cart)
+        //console.log('I AM CART',cart)
         dispatch(fetchCart(cart))
       } catch (err){
           console.log(err)
@@ -114,15 +123,15 @@ const cartReducer = (state = INITIAL_STATE, action) => {
             );
 
             return {
-                ...state,
+                ...state, cart: [...state.cart, action.payload.item ]
                 // item
-                cart: inCart
-                    ? state.cart.map((item) =>
-                        item.id === action.payload.id
-                            ? { ...item, qty: item.qty + 1 }
-                            : item
-                    )
-                    : [...state.cart, { ...item, qty: 1 }],
+                // cart: inCart
+                //     ? state.cart.map((item) =>
+                //         item.id === action.payload.id
+                //             ? { ...item, qty: item.qty + 1 }
+                //             : item
+                //     )
+                //     : [...state.cart, { ...item, qty: 1 }],
             };
         case REMOVE_FROM_CART:
             return {

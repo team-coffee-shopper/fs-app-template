@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { adjustQty, removeFromCart, } from "../store/cart";
 
-const ItemInCart = ({ cart,  adjustQty, removeFromCart }) => {
+const ItemInCart = ({ cart,  adjustQty, removeFromCart}) => {
     //const [ input, setInput ] = useState(orderItem.qty);
     // let setInput = useState(orderItem.qty)
 
@@ -10,10 +10,13 @@ const ItemInCart = ({ cart,  adjustQty, removeFromCart }) => {
         setInput(evt.target.value);
         adjustQty(orderItem.wine.id, evt.target.value);
     };
-// orderItem,
+
+
+    console.log('CARTTT', cart)
     return (
         <ul>
             {
+              cart.length === 0 ? <h1>Hellooooo</h1> :
               cart.cart.map( orderItem =>(
                   <li>
                     <img src={orderItem.wine.imageUrl} alt={orderItem.wine.title} />

@@ -32,8 +32,8 @@ const Cart = (props) => {
 
 
 
-    console.log('yo')
-    console.log('FIND USER: ', props)
+    // console.log('yo')
+    console.log('FIND USER: ', cart)
 
     return (
         <div>

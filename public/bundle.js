@@ -12022,9 +12022,9 @@ const Cart = props => {
     setTotalQty(items);
     setTotalPrice(price);
   }, [props.auth]); // [cart.cart, totalPrice, totalQty, setTotalPrice, setTotalQty]);
+  // console.log('yo')
 
-  console.log('yo');
-  console.log('FIND USER: ', props);
+  console.log('FIND USER: ', cart);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Items"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Quantity"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Price"), cart.length === 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Cart is Empty") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemInCart__WEBPACK_IMPORTED_MODULE_2__.default, {
     cart: cart
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, totalQty, " items"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "TOTAL $ ", totalPrice)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Checkout")));
@@ -12175,10 +12175,10 @@ const ItemInCart = ({
   const onChangeHandler = evt => {
     setInput(evt.target.value);
     adjustQty(orderItem.wine.id, evt.target.value);
-  }; // orderItem,
+  };
 
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, cart.cart.map(orderItem => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+  console.log('CARTTT', cart);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, cart.length === 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Hellooooo") : cart.cart.map(orderItem => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     src: orderItem.wine.imageUrl,
     alt: orderItem.wine.title
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, orderItem.wine.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, orderItem.wine.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, orderItem.wine.price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Average customer rating: ", orderItem.wine.averageRating), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "across ", orderItem.wine.ratingCount, " ratings"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
@@ -12361,9 +12361,11 @@ class Products extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 
   render() {
     const {
-      wines
+      wines,
+      auth,
+      addToCart
     } = this.props;
-    console.log(wines);
+    console.log('THIS IS MY PROPS', this.props);
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "container products-list"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, " Explore Our Products "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -12396,7 +12398,7 @@ class Products extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__.FontAwesomeIcon, {
         icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__.faCartPlus
       }), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: () => (0,_store_cart__WEBPACK_IMPORTED_MODULE_4__.addToCart)(wine.id)
+        onClick: () => addToCart(auth.id, wine.id)
       }, "Add To Cart")))));
     })));
   }
@@ -12405,9 +12407,11 @@ class Products extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 
 const mapStateToProps = ({
   wines,
-  cart
+  cart,
+  auth
 }) => {
   return {
+    auth,
     wines,
     cart: cart.cart
   };
@@ -12416,7 +12420,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => {
   return {
     fetchWines: () => dispatch((0,_store_wines__WEBPACK_IMPORTED_MODULE_2__.fetchWines)()),
-    addToCart: id => dispatch((0,_store_cart__WEBPACK_IMPORTED_MODULE_4__.addToCart)(id))
+    addToCart: (userId, itemId) => dispatch((0,_store_cart__WEBPACK_IMPORTED_MODULE_4__._addToCart)(userId, itemId))
   };
 };
 
@@ -12544,6 +12548,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "removeFromCart": () => (/* binding */ removeFromCart),
 /* harmony export */   "adjustQty": () => (/* binding */ adjustQty),
 /* harmony export */   "loadCurrentItem": () => (/* binding */ loadCurrentItem),
+/* harmony export */   "_addToCart": () => (/* binding */ _addToCart),
 /* harmony export */   "_fetchCart": () => (/* binding */ _fetchCart),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -12570,7 +12575,7 @@ const fetchCart = cart => {
   };
 };
 const addToCart = item => {
-  console.log('addToCart: ', item);
+  //console.log('addToCart: ', item)
   return {
     type: ADD_TO_CART,
     payload: {
@@ -12601,9 +12606,17 @@ const loadCurrentItem = item => {
     payload: item
   };
 }; //**********THUNK **********//
-// export const _addToCart = (orderItem) => {
+
+const _addToCart = (userId, itemId) => {
+  return async dispatch => {
+    await axios__WEBPACK_IMPORTED_MODULE_0___default().post(`/api/addtocart/${userId}/${itemId}`);
+    const wine = (await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/wines/${itemId}`)).data; // dispatch(addToCart(orderItem.ItemId));
+
+    dispatch(addToCart(wine));
+  };
+}; // export const _addToCart = (item) => {
 //     return async(dispatch) => {
-//         const cart = (await axios.post(`/api/usercart/${orderItem.userId}`)).data
+//         const cart = (await axios.post(`/api/addusercart/${orderItem.userId}`)).data
 //         // dispatch(addToCart(orderItem.ItemId));
 //         dispatch(addToCart(cart));
 //     }
@@ -12619,8 +12632,8 @@ const loadCurrentItem = item => {
 const _fetchCart = userId => {
   return async dispatch => {
     try {
-      const cart = (await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/usercart/${userId}`)).data;
-      console.log('I AM CART', cart);
+      const cart = (await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/usercart/${userId}`)).data; //console.log('I AM CART',cart)
+
       dispatch(fetchCart(cart));
     } catch (err) {
       console.log(err);
@@ -12650,12 +12663,15 @@ const cartReducer = (state = INITIAL_STATE, action) => {
 
       const inCart = state.cart.find(item => item.id === action.payload.id ? true : false);
       return { ...state,
-        // item
-        cart: inCart ? state.cart.map(item => item.id === action.payload.id ? { ...item,
-          qty: item.qty + 1
-        } : item) : [...state.cart, { ...item,
-          qty: 1
-        }]
+        cart: [...state.cart, action.payload.item] // item
+        // cart: inCart
+        //     ? state.cart.map((item) =>
+        //         item.id === action.payload.id
+        //             ? { ...item, qty: item.qty + 1 }
+        //             : item
+        //     )
+        //     : [...state.cart, { ...item, qty: 1 }],
+
       };
 
     case REMOVE_FROM_CART:
@@ -12699,6 +12715,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "me": () => (/* reexport safe */ _auth__WEBPACK_IMPORTED_MODULE_3__.me),
 /* harmony export */   "_fetchWines": () => (/* reexport safe */ _wines__WEBPACK_IMPORTED_MODULE_4__._fetchWines),
 /* harmony export */   "fetchWines": () => (/* reexport safe */ _wines__WEBPACK_IMPORTED_MODULE_4__.fetchWines),
+/* harmony export */   "_addToCart": () => (/* reexport safe */ _cart__WEBPACK_IMPORTED_MODULE_5__._addToCart),
 /* harmony export */   "_fetchCart": () => (/* reexport safe */ _cart__WEBPACK_IMPORTED_MODULE_5__._fetchCart),
 /* harmony export */   "addToCart": () => (/* reexport safe */ _cart__WEBPACK_IMPORTED_MODULE_5__.addToCart),
 /* harmony export */   "adjustQty": () => (/* reexport safe */ _cart__WEBPACK_IMPORTED_MODULE_5__.adjustQty),

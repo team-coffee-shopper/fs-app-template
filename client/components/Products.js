@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import { fetchWines } from '../store/wines'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
-import { addToCart } from '../store/cart'
+import { _addToCart } from '../store/cart'
 
 class Products extends Component {
     constructor() {
         super()
     }
     render() {
-        const { wines } = this.props;
-        console.log(wines)
+        const { wines, auth, addToCart } = this.props;
+        console.log('THIS IS MY PROPS',this.props)
         return (
             <div className="container products-list">
                 <h2> Explore Our Products </h2>
@@ -44,7 +44,7 @@ class Products extends Component {
                                                 <button><FontAwesomeIcon icon={ faCartPlus } /> </button>
                                                 
                                                 <button
-                                                    onClick={() => addToCart(wine.id)}
+                                                    onClick={() => addToCart(auth.id, wine.id)}
                                                 >
                                                     Add To Cart
                                                 </button>
@@ -63,8 +63,9 @@ class Products extends Component {
     }
 }
 
-const mapStateToProps = ({ wines, cart }) => {
+const mapStateToProps = ({ wines, cart, auth }) => {
     return {
+        auth,
         wines,
         cart: cart.cart
     }
@@ -73,7 +74,7 @@ const mapStateToProps = ({ wines, cart }) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchWines: () => dispatch(fetchWines()),
-        addToCart: (id) => dispatch(addToCart(id))
+        addToCart: (userId, itemId) => dispatch(_addToCart(userId, itemId))
     }
 }
 
