@@ -12397,7 +12397,7 @@ class Products extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__.faCartPlus
       }), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: () => (0,_store_cart__WEBPACK_IMPORTED_MODULE_4__.addToCart)(wine.id)
-      }, "Add To Cart")))));
+      })))));
     })));
   }
 
