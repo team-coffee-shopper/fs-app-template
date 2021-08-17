@@ -2,45 +2,79 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { adjustQty, removeFromCart, } from "../store/cart";
 
-const ItemInCart = ({ item, adjustQty, removeFromCart }) => {
-    const [ input, setInput ] = useState(item.qty);
-    // let setInput = useState(item.qty)
+const ItemInCart = ({ cart,  adjustQty, removeFromCart }) => {
+    //const [ input, setInput ] = useState(orderItem.qty);
+    // let setInput = useState(orderItem.qty)
 
     const onChangeHandler = (evt) => {
         setInput(evt.target.value);
-        adjustQty(item.id, evt.target.value);
+        adjustQty(orderItem.wine.id, evt.target.value);
     };
-
+// orderItem,
     return (
-        <div>
-            <img src={item.imageUrl} alt={item.title} />
-            <div>
-                <p>{item.title}</p>
-                <p>{item.description}</p>
-                <p>{item.price}</p>
-                <p>Average customer rating: {item.averageRating}</p>
-                <p>across {item.ratingCount} ratings</p>
-                <a href={item.link}>Link</a>
+        <ul>
+            {
+              cart.cart.map( orderItem =>(
+                  <li>
+                    <img src={orderItem.wine.imageUrl} alt={orderItem.wine.title} />
+                    <div>
+                      <p>{orderItem.wine.title}</p>
+                      <p>{orderItem.wine.description}</p>
+                      <p>{orderItem.wine.price}</p>
+                      <p>Average customer rating: {orderItem.wine.averageRating}</p>
+                      <p>across {orderItem.wine.ratingCount} ratings</p>
+                      <a href={orderItem.wine.link}>Link</a>
+                    </div>
+                    <div>
+                      <div>
+                         <label htmlFor="qty">Qty</label>
+                         <input
+                             min="0"
+                             type="number"
+                             id="qty"
+                             name="qty"
+                             //value={input}
+                             defaultValue="1"
+                            onChange={onChangeHandler}
+                         />
+                      </div>
+                    <button onClick={() => removeFromCart(orderItem.wine.id)} >
+                         Remove
+                     </button>
+                   </div> 
+                  </li>
                 
-            </div>
-            <div>
-                <div>
-                    <label htmlFor="qty">Qty</label>
-                    <input
-                        min="0"
-                        type="number"
-                        id="qty"
-                        name="qty"
-                        value={input}
-                        defaultValue="1"
-                        onChange={onChangeHandler}
-                    />
-                </div>
-                <button onClick={() => removeFromCart(item.id)} >
-                    Remove
-                </button>
-            </div>
-        </div>
+                
+                // <img src={orderItem.wine.imageUrl} alt={orderItem.wine.title} />
+                // <div>
+                //     <p>{orderItem.wine.title}</p>
+                //     <p>{orderItem.wine.description}</p>
+                //     <p>{orderItem.wine.price}</p>
+                //     <p>Average customer rating: {orderItem.wine.averageRating}</p>
+                //     <p>across {orderItem.wine.ratingCount} ratings</p>
+                //     <a href={orderItem.wine.link}>Link</a>
+                    
+                // </div>
+                // <div>
+                //     <div>
+                //         <label htmlFor="qty">Qty</label>
+                //         <input
+                //             min="0"
+                //             type="number"
+                //             id="qty"
+                //             name="qty"
+                //             value={input}
+                //             defaultValue="1"
+                //             onChange={onChangeHandler}
+                //         />
+                //     </div>
+                //     <button onClick={() => removeFromCart(orderItem.wine.id)} >
+                //         Remove
+                //     </button>
+                // </div> 
+              ))
+            }
+        </ul>
     );
 };
 

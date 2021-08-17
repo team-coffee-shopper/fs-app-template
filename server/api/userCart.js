@@ -11,12 +11,13 @@ router.get('/:userId', async(req, res, next) =>{
       include: [
         {
           model: Order,
-          where: {userId},
-          include: [User]
+          where: { userId },
+          include: [ User],
         },
         {
           model: Wine
         }
+        
       ],
     })
     res.send(cart)

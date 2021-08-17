@@ -1,4 +1,8 @@
 import axios from 'axios';
+import { createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk'
+
 
 //*****CART ACTION TYPES *****/
 
@@ -13,11 +17,9 @@ const LOAD_CURRENT_ITEM = "LOAD_CURRENT_ITEM";
 export const fetchCart = (cart) => {
     return {
         type: FETCH_CART,
-        payload: {
-            cart
+        cart
         }
     }
-};
 
 export const addToCart = (item) => {
   console.log('addToCart: ', item)
@@ -76,25 +78,19 @@ export const loadCurrentItem = (item) => {
 
 export const _fetchCart = (userId) => {
     return async(dispatch) => {
+      try {
         const cart = (await axios.get(`/api/usercart/${userId}`)).data
+        console.log('I AM CART',cart)
         dispatch(fetchCart(cart))
+      } catch (err){
+          console.log(err)
+      }
     }
 };
 
 //*******CART REDUCER ********/
 
 const INITIAL_STATE = {
-//     cart: [
-//         {"id":1,"title":"Goldschmidt Vineyard Alexander Valley Chelsea Merlot",
-//             "description":"Beautiful red raspberry, black cherry, and spice aromas. Full and round with plum, red currant, blackberry, and bay leaf flavors. The soft tannins give this wine a velvety smoothness and the chocolatey finish just goes on and on.",
-//             "price":"$19.99","imageUrl":"https://spoonacular.com/productImages/503936-312x231.jpg",
-//             "averageRating":"0.96","ratingCount":"10","score":"0.927741935483871",
-//             "link":"https://click.linksynergy.com/deeplink?id=*QCiIS6t4gA&mid=2025&murl=https%3A%2F%2Fwww.wine.com%2Fproduct%2Fgoldschmidt-vineyard-alexander-valley-chelsea-merlot-2018%2F737409",
-//             "createdAt":"2021-08-12T01:22:13.180Z","updatedAt":"2021-08-12T01:22:13.180Z"},{"id":2,"title":"Maddalena Merlot","description":"Maddalena Merlot offers aromas of ripe fruit and oak spice with hints of vanilla and anise. Ripe fruit flavors include bright plum and raspberry. Fruit flavors greet the palate and soft tannins frame the fresh texture that coats the mouth.","price":"$18.99","imageUrl":"https://spoonacular.com/productImages/491394-312x231.jpg","averageRating":"0.96","ratingCount":"8","score":"0.9199999999999999","link":"https://click.linksynergy.com/deeplink?id=*QCiIS6t4gA&mid=2025&murl=https%3A%2F%2Fwww.wine.com%2Fproduct%2Fmaddalena-merlot-2016%2F604022","createdAt":"2021-08-12T01:22:13.181Z","updatedAt":"2021-08-12T01:22:13.181Z"},{"id":3,"title":"Peju Province Merlot","description":"Deep ruby in color, the 2016 Merlot offers fragrant, layered aromas of juicy pomegranate, baking spice, and a hint of cedar. Lush fruits of cherry and blackberry envelop the palate. Soft hints of toasted almond and vanilla culminate with an elegant finish. Delicious now, this Merlot will continue to mature for the next 6-8 years.Blend: 95% Merlot, 4% Cabernet Sauvignon, 1% Petit Sirah","price":"$37.99","imageUrl":"https://spoonacular.com/productImages/447335-312x231.jpg","averageRating":"0.9","ratingCount":"5","score":"0.8375","link":"https://click.linksynergy.com/deeplink?id=*QCiIS6t4gA&mid=2025&murl=https%3A%2F%2Fwww.wine.com%2Fproduct%2Fpeju-province-merlot-2010%2F133456","createdAt":"2021-08-12T01:22:13.182Z","updatedAt":"2021-08-12T01:22:13.182Z"},
-//     ],
-//     currentItem: null,
-// };
-
     cart: [],
     currentItem: null
 }
@@ -104,12 +100,8 @@ const cartReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case FETCH_CART:
 
-          console.log('working hard')
-          return {
-              ...state,
-              cart: action.payload.cart
-          }
-
+          console.log('FETCHED CART')
+          return {...state, cart: action.cart }
         case ADD_TO_CART:
             // Get Item data from wines array
             // const item = state.wines.find(
@@ -156,4 +148,5 @@ const cartReducer = (state = INITIAL_STATE, action) => {
     }
 };
 
-export default cartReducer;
+
+export default cartReducer

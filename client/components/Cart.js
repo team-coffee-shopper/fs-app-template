@@ -12,10 +12,8 @@ const Cart = (props) => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [totalQty, setTotalQty] = useState(0);
     const { cart } = props; 
-
+    
     useEffect(() => {
-
-        console.log('props: ', props)
 
         if (props.auth.id) props.fetchCart(props.auth.id);
 
@@ -35,18 +33,23 @@ const Cart = (props) => {
 
 
     console.log('yo')
-    console.log('cart: ', cart)
+    console.log('FIND USER: ', props)
 
     return (
         <div>
             <p>Items</p>
             <p>Quantity</p>
             <p>Price</p>
-            <div>
-                {cart.cart.map((item) => (
-                    <ItemInCart key={item.id} item={item} />
-                ))}
-            </div>
+                {/* {cart.map((orderItem) => (
+                  <li>
+                    <ItemInCart key={orderItem.wine.id} item={orderItem} />
+                  </li>
+                ))} */}
+                {
+                    (cart.length === 0 ? <h1>Cart is Empty</h1> :<ItemInCart  cart={cart} /> )
+                }
+
+            
             <div>
                 <div>
                     <span>{totalQty} items</span>
@@ -67,8 +70,12 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    fetchCart: (userId) =>  dispatch(_fetchCart(userId))
-})
+const mapDispatchToProps = {
+    fetchCart: _fetchCart
+}
+
+// {
+//     fetchCart: (userId) =>  dispatch(_fetchCart(userId))
+// }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
