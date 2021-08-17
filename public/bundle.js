@@ -12398,8 +12398,13 @@ class Products extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__.FontAwesomeIcon, {
         icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__.faCartPlus
       }), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+<<<<<<< HEAD
         onClick: () => addToCart(auth.id, wine.id)
       }, "Add To Cart")))));
+=======
+        onClick: () => (0,_store_cart__WEBPACK_IMPORTED_MODULE_4__.addToCart)(wine.id)
+      })))));
+>>>>>>> 3c03aa47ae726f000919c240491475810495aa45
     })));
   }
 

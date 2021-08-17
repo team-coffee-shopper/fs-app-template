@@ -46,7 +46,6 @@ class Products extends Component {
                                                 <button
                                                     onClick={() => addToCart(auth.id, wine.id)}
                                                 >
-                                                    Add To Cart
                                                 </button>
                                             </div>
 
