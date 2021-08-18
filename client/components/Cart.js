@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import ItemInCart from "./ItemInCart";
 import { _fetchCart } from '../store/cart';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBan } from '@fortawesome/free-solid-svg-icons'
 
 const Cart = (props) => {
 
@@ -36,30 +38,38 @@ const Cart = (props) => {
     console.log('CART @ Cart.js: ', cart)
 
     return (
-        <div>
-            <p>Items</p>
-            <p>Quantity</p>
-            <p>Price</p>
-                {/* {cart.map((orderItem) => (
-                  <li>
-                    <ItemInCart key={orderItem.wine.id} item={orderItem} />
-                  </li>
-                ))} */}
+        <div className="container outer">
+            <h2> CART </h2>
+            <div className="row user-cart">
+                <div className="col-4">
+                    <h4>Items</h4>
+                </div>
+                <div className="col-4 text-center">
+                    <h4>Price</h4>
+                </div>
+                <div className="col-4 text-right">
+                        <h4> Delete </h4>
+                </div>
+                <hr></hr>
+            </div>
+            <div className="order-item">
                 {
                     (cart.cart.length === 0 ? <h1>Cart is Empty</h1> :<ItemInCart /> )
                 }
-
-            
-            <div>
-                <div>
-                    <span>{totalQty} items</span>
-                    <span>TOTAL $ {totalPrice}</span>
+            </div>
+            <div className="row">
+                <div className="col-6 text-left">
+                   <h4> Total </h4>
                 </div>
-                <button>
+                <div className="col-6 text-right">
+                    <h4> $ {totalPrice} </h4>        
+                </div>
+                </div>
+                <button  className="primary">
                     Checkout
                 </button>
             </div>
-        </div>
+       
     );
 };
 

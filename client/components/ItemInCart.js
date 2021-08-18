@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { adjustQty, removeFromCart, _fetchCart } from "../store/cart";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBan } from '@fortawesome/free-solid-svg-icons'
 
 const ItemInCart = (props) => {
   const { cart,  adjustQty, removeFromCart} = props
@@ -22,42 +24,35 @@ const ItemInCart = (props) => {
     
    
     return (
-        <ul>
+        <div className="itemInner">
             {
               cart.cart.length === 0 ?
               <h1>nooooo</h1> :
               cart.cart.map( orderItem =>(
-                  <li key={ orderItem.id }>
-                    <img src={orderItem.wine.imageUrl} alt={orderItem.wine.title} />
-                    <div>
-                      <p>{orderItem.wine.title}</p>
-                      <p>{orderItem.wine.description}</p>
-                      <p>{orderItem.wine.price}</p>
-                      <p>Average customer rating: {orderItem.wine.averageRating}</p>
-                      <p>across {orderItem.wine.ratingCount} ratings</p>
-                      <a href={orderItem.wine.link}>Link</a>
-                    </div>
-                    <div>
-                      <div>
-                         <label htmlFor="qty">Qty</label>
-                         <input
-                             min="0"
-                             type="number"
-                             id="qty"
-                             name="qty"
-                             //value={input}
-                             defaultValue="1"
-                            onChange={onChangeHandler}
-                         />
+                  <div key={ orderItem.id }>
+                    <div className="col-md-4 text-left">
+                      <div className="col-md-6">
+                        <img src={orderItem.wine.imageUrl} alt={orderItem.wine.title} />
                       </div>
-                    <button onClick={() => removeFromCart(orderItem.wine.id)} >
-                         Remove
-                     </button>
+                      <div className="col-md-6 title">
+                        {orderItem.wine.title}
+                      </div>
+                      
+                    </div>
+                    <div className="col-md-4 text-center">
+                      <p>{orderItem.wine.price}</p>
+                    </div>
+                    <div className="col-md-4 text-right">
+                       <button onClick={() => removeFromCart(orderItem.wine.id)}> <FontAwesomeIcon icon={ faBan } />  </button>
+                    </div>    
+                    <div>
                    </div> 
-                  </li>
+                  </div>
+                
+                  
               ))
             }
-        </ul>
+        </div>
     );
 };
 const mapState = (state) =>{
