@@ -11773,8 +11773,14 @@ __webpack_require__.r(__webpack_exports__);
 class App extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   componentDidMount() {
     this.props.fetchWines();
+  }
 
-    (0,_store_cart__WEBPACK_IMPORTED_MODULE_5__._fetchCart)();
+  componentDidUpdate(prevProps) {
+    if (prevProps.auth.id !== this.props.auth.id) {
+      console.log('AUTH ID ---->', this.props.auth.id);
+      console.log('runnnnn');
+      this.props.fetchCart(this.props.auth.id);
+    }
   }
 
   render() {
@@ -11783,14 +11789,22 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 
 }
 
-const mapDispatchToProps = dispatch => {
+const mapState = state => {
   return {
-    fetchWines: () => dispatch((0,_store__WEBPACK_IMPORTED_MODULE_6__.fetchWines)()),
-    fetchCart: _store_cart__WEBPACK_IMPORTED_MODULE_5__._fetchCart
+    isLoggedIn: !!state.auth.id,
+    cart: state.cart,
+    auth: state.auth
   };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_7__.connect)(null, mapDispatchToProps)(App));
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchWines: () => dispatch((0,_store__WEBPACK_IMPORTED_MODULE_6__.fetchWines)()),
+    fetchCart: id => dispatch((0,_store_cart__WEBPACK_IMPORTED_MODULE_5__._fetchCart)(id))
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_7__.connect)(mapState, mapDispatchToProps)(App));
 
 /***/ }),
 
@@ -12119,6 +12133,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store */ "./client/store/index.js");
+
 
 
 /**
@@ -12139,11 +12155,18 @@ const Home = props => {
 
 const mapState = state => {
   return {
-    username: state.auth.username
+    username: state.auth.username,
+    cart: state.cart
   };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapState)(Home));
+const mapDispatch = dispatch => {
+  return {
+    fetchCart: _store__WEBPACK_IMPORTED_MODULE_2__._fetchCart
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapState, mapDispatch)(Home));
 
 /***/ }),
 
@@ -12264,56 +12287,62 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-console.log();
 
-const Navbar = ({
-  handleClick,
-  isLoggedIn,
-  cart
-}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-  className: "nav-outer"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("nav", null, isLoggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-  className: "navbar"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-  className: "col-sm-4"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-  to: "/products"
-}, "Shop")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-  className: "col-sm-4 text-md-center logo"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-  to: "/"
-}, "WIneCellar")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-  className: "col-sm-4 text-md-right"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-  to: "/cart"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__.FontAwesomeIcon, {
-  icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__.faShoppingCart
-}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-  className: "items-in-cart"
-}, " ", cart.cart.length ? cart.cart.length : 0, " ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-  to: "/profile"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__.FontAwesomeIcon, {
-  icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__.faUser
-})), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-  href: "#",
-  onClick: handleClick
-}, "Logout"))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-  className: "navbar"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-  className: "col-sm-4"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-  to: "/products"
-}, "Shop")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-  className: "col-sm-4 text-md-center logo"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-  to: "/"
-}, "WIneCellar")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-  className: "col-sm-4 text-md-right"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-  to: "/login"
-}, "Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-  to: "/signup"
-}, "Sign Up")))));
+const Navbar = props => {
+  const {
+    handleClick,
+    isLoggedIn,
+    cart
+  } = props; //console.log('props', props)
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (props.auth.id) props.fetchCart(props);
+  }, [props.auth]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "nav-outer"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("nav", null, isLoggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "navbar"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "col-sm-4"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+    to: "/products"
+  }, "Shop")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "col-sm-4 text-md-center logo"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+    to: "/"
+  }, "WIneCellar")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "col-sm-4 text-md-right"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+    to: "/cart"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__.FontAwesomeIcon, {
+    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__.faShoppingCart
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "items-in-cart"
+  }, " ", cart.cart.length ? cart.cart.length : 0, " ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+    to: "/profile"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__.FontAwesomeIcon, {
+    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__.faUser
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+    href: "#",
+    onClick: handleClick
+  }, "Logout"))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "navbar"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "col-sm-4"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+    to: "/products"
+  }, "Shop")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "col-sm-4 text-md-center logo"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+    to: "/"
+  }, "WIneCellar")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "col-sm-4 text-md-right"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+    to: "/login"
+  }, "Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+    to: "/signup"
+  }, "Sign Up")))));
+};
 /**
  * CONTAINER
  */
@@ -12322,7 +12351,8 @@ const Navbar = ({
 const mapState = state => {
   return {
     isLoggedIn: !!state.auth.id,
-    cart: state.cart
+    cart: state.cart,
+    auth: state.auth
   };
 };
 
@@ -12589,9 +12619,7 @@ const addToCart = item => {
   //console.log('addToCart: ', item)
   return {
     type: ADD_TO_CART,
-    payload: {
-      item
-    }
+    item
   };
 };
 const removeFromCart = itemID => {
@@ -12621,8 +12649,8 @@ const loadCurrentItem = item => {
 const _addToCart = (userId, itemId) => {
   return async dispatch => {
     await axios__WEBPACK_IMPORTED_MODULE_0___default().post(`/api/addtocart/${userId}/${itemId}`);
-    const wine = (await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/wines/${itemId}`)).data; // dispatch(addToCart(orderItem.ItemId));
-
+    const wine = (await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/wines/${itemId}`)).data;
+    console.log('ADD TO CAR THUNK', wine);
     dispatch(addToCart(wine));
   };
 }; // export const _addToCart = (item) => {
@@ -12644,7 +12672,7 @@ const _fetchCart = userId => {
   return async dispatch => {
     try {
       const cart = (await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/usercart/${userId}`)).data;
-      console.log('I AM CART', cart.length);
+      console.log('FETCH CART THUNK', cart);
       dispatch(fetchCart(cart));
     } catch (err) {
       console.log(err);
@@ -12670,11 +12698,16 @@ const cartReducer = (state = INITIAL_STATE, action) => {
       // const item = state.wines.find(
       //     wine => wine.id === action.payload.id
       // );
-      const item = action.item; // Check if Item is in cart already
+      const item = action.item;
+      console.log('HOW STATE LOOKS', { ...state,
+        cart: [...state.cart, action.item]
+      }); // Check if Item is in cart already
+      // const inCart = state.cart.find((item) =>
+      //     item.id === action.payload.id ? true : false
+      // );
 
-      const inCart = state.cart.find(item => item.id === action.payload.id ? true : false);
       return { ...state,
-        cart: [...state.cart, action.payload.item] // item
+        cart: [...state.cart, action.item] // item
         // cart: inCart
         //     ? state.cart.map((item) =>
         //         item.id === action.payload.id

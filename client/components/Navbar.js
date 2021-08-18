@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import { _fetchCart } from '../store/cart';
@@ -7,10 +7,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
-console.log()
 
-const Navbar = ({handleClick, isLoggedIn, cart}) => (
-  <div className = "nav-outer">
+
+const Navbar = (props) => {
+  const { handleClick, isLoggedIn, cart } = props
+  //console.log('props', props)
+  useEffect(() => {
+    if (props.auth.id) props.fetchCart(props) 
+  }, [props.auth])
+
+  return (   
+    <div className = "nav-outer">
     <nav>
       {isLoggedIn ? (
         <div className="navbar">
@@ -50,7 +57,8 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
       )}
     </nav>
   </div>
-)
+  )  
+}
 
 /**
  * CONTAINER
@@ -58,7 +66,8 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
 const mapState = state => {
   return {
     isLoggedIn: !!state.auth.id,
-    cart: state.cart
+    cart: state.cart,
+    auth: state.auth
   }
 }
 

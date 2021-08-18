@@ -11,9 +11,15 @@ import { connect } from 'react-redux';
 class App extends Component {
   componentDidMount() {
     this.props.fetchWines();
-    _fetchCart();
-
   }
+  componentDidUpdate(prevProps){
+    if (prevProps.auth.id !== this.props.auth.id){
+      console.log('AUTH ID ---->',this.props.auth.id)
+      console.log('runnnnn')
+      this.props.fetchCart(this.props.auth.id);
+    }
+  }
+
   render(){
     return (
       <div>
@@ -28,11 +34,19 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapState = state => {
   return {
-    fetchWines: () => dispatch(fetchWines()),
-    fetchCart: _fetchCart
+    isLoggedIn: !!state.auth.id,
+    cart: state.cart,
+    auth: state.auth
   }
 }
 
-export default connect(null, mapDispatchToProps)(App);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchWines: () => dispatch(fetchWines()),
+    fetchCart: (id) => dispatch(_fetchCart(id))
+  }
+}
+
+export default connect(mapState, mapDispatchToProps)(App);

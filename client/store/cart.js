@@ -25,9 +25,7 @@ export const addToCart = (item) => {
   //console.log('addToCart: ', item)
   return {
     type: ADD_TO_CART,
-    payload: {
-        item
-    }
+    item
   };
 };
 
@@ -61,9 +59,10 @@ export const loadCurrentItem = (item) => {
 
 export const _addToCart = (userId, itemId) => {
     return async(dispatch) => {
-        await axios.post(`/api/addtocart/${userId}/${itemId}`)
-        const wine = (await axios.get(`/api/wines/${itemId}`)).data
-        // dispatch(addToCart(orderItem.ItemId));
+       await axios.post(`/api/addtocart/${userId}/${itemId}`)
+       const wine = (await axios.get(`/api/wines/${itemId}`)).data
+        
+        console.log('ADD TO CAR THUNK', wine)
         dispatch(addToCart(wine));
     }
 };
@@ -89,7 +88,7 @@ export const _fetchCart = (userId) => {
     return async(dispatch) => {
       try {
         const cart = (await axios.get(`/api/usercart/${userId}`)).data
-        console.log('I AM CART',cart.length)
+        console.log('FETCH CART THUNK',cart)
         dispatch(fetchCart(cart))
       } catch (err){
           console.log(err)
@@ -117,13 +116,14 @@ const cartReducer = (state = INITIAL_STATE, action) => {
             //     wine => wine.id === action.payload.id
             // );
             const item = action.item;
+            console.log('HOW STATE LOOKS', {...state, cart: [...state.cart, action.item ]})
             // Check if Item is in cart already
-            const inCart = state.cart.find((item) =>
-                item.id === action.payload.id ? true : false
-            );
+            // const inCart = state.cart.find((item) =>
+            //     item.id === action.payload.id ? true : false
+            // );
 
             return {
-                ...state, cart: [...state.cart, action.payload.item ]
+                ...state, cart: [...state.cart, action.item ]
                 // item
                 // cart: inCart
                 //     ? state.cart.map((item) =>
