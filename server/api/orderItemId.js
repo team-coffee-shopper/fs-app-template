@@ -9,18 +9,18 @@ router.get('/:ordertItemId', async (req, res, next)=>{
     const orderItem = await OrderItem.findAll({
       where: {
         id: id,
-        include: [
-          {
-            model: Order,
-            include: [User]
-          },
-          {
-            model: Wine
-          }
-        ]
-      }
-      },
-      )
+      }, 
+      include: [
+        {
+          model: Order,
+          include: [User]
+        },
+        {
+          model: Wine
+        }
+      ]
+    })
+    //console.log('API OrderItem',orderItem)
     // const orderItem = await OrderItem.findByPk(orderItemId, {   
     //   include: [Order, User, Wine]
     // })

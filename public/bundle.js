@@ -12601,7 +12601,8 @@ const fetchCart = cart => {
   };
 };
 const addToCart = item => {
-  //console.log('addToCart: ', item)
+  console.log('addToCart: ACTION CREATOR ', item);
+  item = item[0];
   return {
     type: ADD_TO_CART,
     item
@@ -12635,9 +12636,9 @@ const _addToCart = (userId, itemId) => {
   return async dispatch => {
     const orderItemId = (await axios__WEBPACK_IMPORTED_MODULE_0___default().post(`/api/addtocart/${userId}/${itemId}`)).data.id;
     const orderItem = (await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/orderitem/${orderItemId}`)).data; //const wine = (await axios.get(`/api/wines/${itemId}`)).data
-
-    console.log('I AM ORDER ITEM ID---->', orderItemId);
-    console.log('CREATED Order Item--->', orderItem); //console.log('ADD TO CAR THUNK', wine)
+    //console.log('I AM ORDER ITEM ID---->', orderItemId)
+    //console.log('CREATED Order Item--->', orderItem)
+    //console.log('ADD TO CAR THUNK', wine)
 
     dispatch(addToCart(orderItem));
   };

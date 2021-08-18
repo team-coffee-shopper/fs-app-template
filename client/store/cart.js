@@ -22,7 +22,8 @@ export const fetchCart = (cart) => {
 }
 
 export const addToCart = (item) => {
-  //console.log('addToCart: ', item)
+  console.log('addToCart: ACTION CREATOR ', item)
+  item = item[0]
   return {
     type: ADD_TO_CART,
     item
@@ -62,8 +63,8 @@ export const _addToCart = (userId, itemId) => {
        const orderItemId = (await axios.post(`/api/addtocart/${userId}/${itemId}`)).data.id
        const orderItem = (await axios.get(`/api/orderitem/${orderItemId}`)).data
        //const wine = (await axios.get(`/api/wines/${itemId}`)).data
-       console.log('I AM ORDER ITEM ID---->', orderItemId)
-        console.log('CREATED Order Item--->', orderItem)
+       //console.log('I AM ORDER ITEM ID---->', orderItemId)
+        //console.log('CREATED Order Item--->', orderItem)
         //console.log('ADD TO CAR THUNK', wine)
         dispatch(addToCart(orderItem));
     }
