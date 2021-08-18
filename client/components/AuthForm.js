@@ -1,32 +1,57 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {authenticate} from '../store'
+import GoogleLogin from 'react-google-login'
 
 /**
  * COMPONENT
  */
 const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
-
+  const {name, displayName, handleSubmit, error} = props;
+  
+  const responseGoogle = (response)=>{
+    console.log(response)
+    console.log(response.profileObj)
+  }
+ 
   return (
-    <div>
+    <div style={{backgroundColor: 'black'}}>
       <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="username">
+      <div className="loginEdit">
+      <h1>Login to Your Account</h1>
+          <p>Explore our non-alcoholic wine selection and make a puchace by logging in to your account.</p>
+          {/* <label htmlFor="username">
             <small>Username</small>
-          </label>
-          <input name="username" type="text" />
-        </div>
-        <div>
+          </label> */}
+          {/* <input name="username" type="text" placeholder="username" /> */}
+          <div class="form-outline">
+  <input type="text" name="username" id="form1" class="form-control" placeholder="Username" style={{color: 'white', backgroundColor: '#141414', border: 'black solid 1px', padding: '2rem 4rem'}} />
+  {/* <label class="form-label" for="form1">Username</label> */}
+</div>
+<br/>
+{/*         
           <label htmlFor="password">
             <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
+          </label> */}
+          {/* <input name="password" type="password" placeholder="password"/> */}
+          <div class="form-outline">
+  <input type="text" name="password" id="form1" class="form-control" placeholder="Password" style={{color: 'white', backgroundColor: '#141414', border: 'black solid 1px', padding: '2rem 4rem'}}/>
+  {/* <label class="form-label" for="form1">Password</label> */}
+</div>
+          <br/>
+          <button type="submit" style={{color: 'grey', backgroundColor: 'white', border: 'black solid 1px', padding: '2rem 4rem'}}>{displayName} in to Your Account ➟ </button>
+          </div>
         {error && error.response && <div> {error.response.data} </div>}
+
+        <div className="google">
+          <GoogleLogin
+          clientId="1058116808147-savon90a46im5l8hv4jr18gqmmj7147e.apps.googleusercontent.com"
+          buttonText="Log in with Google"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={'single_host_origin'}
+          />
+        </div>
       </form>
     </div>
   )

@@ -104,10 +104,46 @@ span.items-in-cart {
 
 /*---------HOME PAGE STYLES---------*/
 .container.homepage {
+  background-image: url(/assets/landing-page-backgound.jpg);
   height: calc(100vh - 318px);
   overflow: auto;
+  position: relative;
+  min-width: 100%;
+  background-size: 75%;
+  background-repeat: no-repeat;
+  background-color: black;
+  background-position: right;
 }
+.info {
+  /* border: 2px solid red; */
+  line-height: 2px;
+  padding: 1em;
+  font-family: 'Open Sans Condensed', sans-serif;
+  position: absolute;
+}
+
 /*---------END HOME PAGE STYLES---------*/
+
+/*--------- LOGIN PAGE STYLES---------*/
+
+
+.loginEdit {
+  height: calc(100vh - 318px);
+  overflow: auto;
+  color: white;
+  background-color: black;
+  min-width: 100%;
+}
+
+
+.loginEdit .form-outline {
+   /* display: flex;
+  flex-direction: column;
+  padding: 1rem 1rem;
+  position: relative; */
+}
+
+/*---------END LOGIN PAGE STYLES---------*/
 
 
 /*--------- PRODUCTS STYLES--------- */

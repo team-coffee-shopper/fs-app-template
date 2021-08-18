@@ -1,6 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { _fetchCart } from '../store'
+import {connect} from 'react-redux'
 
 /**
  * COMPONENT
@@ -11,6 +10,12 @@ export const Home = props => {
   return (
     <div className="container homepage">
       <h3>Welcome, {username}</h3>
+      <div className="info" style={{display: 'flex', flexDirection: 'column', padding: '2rem 2rem'  }}>
+      <h1 style={{color: 'white'}}>Non-Alcoholic Spirits</h1>
+      <h2 style={{color: 'white'}}>WineCella is on a mission to change the <br/> way the world thinks with the highest quality <br/> non-alcoholic options.</h2>
+      <img src="../assets/enjoy-your-wine.png" width="110px" style={{}}></img>
+      </div>
+
     </div>
   )
 }
@@ -20,14 +25,8 @@ export const Home = props => {
  */
 const mapState = state => {
   return {
-    username: state.auth.username,
-    cart: state.cart
-  }
-}
-const mapDispatch = dispatch => {
-  return {
-    fetchCart: _fetchCart
+    username: state.auth.username
   }
 }
 
-export default connect(mapState, mapDispatch)(Home)
+export default connect(mapState)(Home)

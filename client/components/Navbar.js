@@ -26,7 +26,7 @@ const Navbar = (props) => {
             <Link to="/products">Shop</Link>
           </div>
           <div className="col-sm-4 text-md-center logo">     
-              <Link to="/">WIneCellar</Link>
+              <Link to="/"><img src="../assets/logo.png"></img></Link>
           </div>
           <div className="col-sm-4 text-md-right">
             <Link to="/cart"> 
@@ -47,7 +47,7 @@ const Navbar = (props) => {
               <Link to="/products">Shop</Link>
           </div>
           <div className="col-sm-4 text-md-center logo">     
-              <Link to="/">WIneCellar</Link>
+              <Link to="/"><img src="../assets/logo.png"></img></Link>
           </div>
           <div  className="col-sm-4 text-md-right">
               <Link to="/login">Login</Link>
