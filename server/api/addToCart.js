@@ -16,12 +16,12 @@ router.post('/:userId/:itemId', async (req, res, next)=>{
       raw: true
     })
     console.log('I AM ORDERRRRRR', order)
-    await OrderItem.create({
+    const orderItemCreated = await OrderItem.create({
       quantity: 1, 
       orderId: order.id,
       wineId: itemId
     })
-    res.sendStatus(201)
+    res.send(orderItemCreated)
   } catch (err){
       console.log(err)
   }

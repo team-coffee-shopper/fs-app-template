@@ -59,30 +59,15 @@ export const loadCurrentItem = (item) => {
 
 export const _addToCart = (userId, itemId) => {
     return async(dispatch) => {
-       await axios.post(`/api/addtocart/${userId}/${itemId}`)
-       const wine = (await axios.get(`/api/wines/${itemId}`)).data
-        
-        console.log('ADD TO CAR THUNK', wine)
-        dispatch(addToCart(wine));
+       const orderItemId = (await axios.post(`/api/addtocart/${userId}/${itemId}`)).data.id
+       const orderItem = (await axios.get(`/api/orderitem/${orderItemId}`)).data
+       //const wine = (await axios.get(`/api/wines/${itemId}`)).data
+       console.log('I AM ORDER ITEM ID---->', orderItemId)
+        console.log('CREATED Order Item--->', orderItem)
+        //console.log('ADD TO CAR THUNK', wine)
+        dispatch(addToCart(orderItem));
     }
 };
-
-
-// export const _addToCart = (item) => {
-//     return async(dispatch) => {
-//         const cart = (await axios.post(`/api/addusercart/${orderItem.userId}`)).data
-//         // dispatch(addToCart(orderItem.ItemId));
-//         dispatch(addToCart(cart));
-//     }
-// };
-
-// export const _adjustQty = (qty) => {
-//     return async(dispatch) => {
-//         const cart = (await axios.put(`/api/usercart/${orderItem.userId}`)).data
-//         dispatch(adjustQty(qty));
-//         // dispatch(addToCart(cart));
-//     }
-// };
 
 export const _fetchCart = (userId) => {
     return async(dispatch) => {
@@ -107,32 +92,11 @@ const INITIAL_STATE = {
 const cartReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case FETCH_CART:
-
           console.log('FETCHED CART')
           return {...state, cart: action.cart }
         case ADD_TO_CART:
-            // Get Item data from wines array
-            // const item = state.wines.find(
-            //     wine => wine.id === action.payload.id
-            // );
-            const item = action.item;
-            console.log('HOW STATE LOOKS', {...state, cart: [...state.cart, action.item ]})
-            // Check if Item is in cart already
-            // const inCart = state.cart.find((item) =>
-            //     item.id === action.payload.id ? true : false
-            // );
-
-            return {
-                ...state, cart: [...state.cart, action.item ]
-                // item
-                // cart: inCart
-                //     ? state.cart.map((item) =>
-                //         item.id === action.payload.id
-                //             ? { ...item, qty: item.qty + 1 }
-                //             : item
-                //     )
-                //     : [...state.cart, { ...item, qty: 1 }],
-            };
+            console.log('ADD TO CART')
+            return { ...state, cart: [...state.cart, action.item ] };
         case REMOVE_FROM_CART:
             return {
                 ...state,

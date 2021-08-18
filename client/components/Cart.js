@@ -16,7 +16,7 @@ const Cart = (props) => {
     useEffect(() => {
 
         if (props.auth.id) props.fetchCart(props.auth.id);
-
+        console.log('CAR COMP USE EFFECT --- IS RUNNING')
         let items = 0;
         let price = 0; 
 
@@ -33,7 +33,7 @@ const Cart = (props) => {
 
 
     // console.log('yo')
-    console.log('FIND USER: ', cart)
+    console.log('CART @ Cart.js: ', cart)
 
     return (
         <div>
@@ -46,7 +46,7 @@ const Cart = (props) => {
                   </li>
                 ))} */}
                 {
-                    (cart.length === 0 ? <h1>Cart is Empty</h1> :<ItemInCart  cart={cart} /> )
+                    (cart.cart.length === 0 ? <h1>Cart is Empty</h1> :<ItemInCart /> )
                 }
 
             

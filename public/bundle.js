@@ -11777,8 +11777,8 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.auth.id !== this.props.auth.id) {
-      console.log('AUTH ID ---->', this.props.auth.id);
-      console.log('runnnnn');
+      //console.log('AUTH ID ---->',this.props.auth.id)
+      //console.log('runnnnn')
       this.props.fetchCart(this.props.auth.id);
     }
   }
@@ -12027,6 +12027,7 @@ const Cart = props => {
   } = props;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (props.auth.id) props.fetchCart(props.auth.id);
+    console.log('CAR COMP USE EFFECT --- IS RUNNING');
     let items = 0;
     let price = 0;
     cart.cart.forEach(item => {
@@ -12038,10 +12039,8 @@ const Cart = props => {
   }, [props.auth]); // [cart.cart, totalPrice, totalQty, setTotalPrice, setTotalQty]);
   // console.log('yo')
 
-  console.log('FIND USER: ', cart);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Items"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Quantity"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Price"), cart.length === 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Cart is Empty") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemInCart__WEBPACK_IMPORTED_MODULE_2__.default, {
-    cart: cart
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, totalQty, " items"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "TOTAL $ ", totalPrice)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Checkout")));
+  console.log('CART @ Cart.js: ', cart);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Items"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Quantity"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Price"), cart.cart.length === 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Cart is Empty") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemInCart__WEBPACK_IMPORTED_MODULE_2__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, totalQty, " items"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "TOTAL $ ", totalPrice)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Checkout")));
 };
 
 const mapStateToProps = state => {
@@ -12188,20 +12187,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const ItemInCart = ({
-  cart,
-  adjustQty,
-  removeFromCart
-}) => {
-  //const [ input, setInput ] = useState(orderItem.qty);
+const ItemInCart = props => {
+  const {
+    cart,
+    adjustQty,
+    removeFromCart
+  } = props; //const [ input, setInput ] = useState(orderItem.qty);
   // let setInput = useState(orderItem.qty)
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (props.cart) props.fetchCart(props.auth.id); //console.log('PROPS.AUTH.ID', props.auth.id)
+  }, [props.cart]);
+
   const onChangeHandler = evt => {
     setInput(evt.target.value);
     adjustQty(orderItem.wine.id, evt.target.value);
-  };
+  }; //onsole.log('CARTTT @ ItemCART', cart.cart)
 
-  console.log('CARTTT', cart);
-  console.log(cart.cart.length);
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, cart.cart.length === 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "nooooo") : cart.cart.map(orderItem => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
     key: orderItem.id
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
@@ -12221,43 +12224,25 @@ const ItemInCart = ({
     onChange: onChangeHandler
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     onClick: () => removeFromCart(orderItem.wine.id)
-  }, "Remove"))) // <img src={orderItem.wine.imageUrl} alt={orderItem.wine.title} />
-  // <div>
-  //     <p>{orderItem.wine.title}</p>
-  //     <p>{orderItem.wine.description}</p>
-  //     <p>{orderItem.wine.price}</p>
-  //     <p>Average customer rating: {orderItem.wine.averageRating}</p>
-  //     <p>across {orderItem.wine.ratingCount} ratings</p>
-  //     <a href={orderItem.wine.link}>Link</a>
-  // </div>
-  // <div>
-  //     <div>
-  //         <label htmlFor="qty">Qty</label>
-  //         <input
-  //             min="0"
-  //             type="number"
-  //             id="qty"
-  //             name="qty"
-  //             value={input}
-  //             defaultValue="1"
-  //             onChange={onChangeHandler}
-  //         />
-  //     </div>
-  //     <button onClick={() => removeFromCart(orderItem.wine.id)} >
-  //         Remove
-  //     </button>
-  // </div> 
-  ));
+  }, "Remove")))));
+};
+
+const mapState = state => {
+  return {
+    cart: state.cart,
+    auth: state.auth
+  };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     adjustQty: (id, value) => dispatch((0,_store_cart__WEBPACK_IMPORTED_MODULE_2__.adjustQty)(id, value)),
-    removeFromCart: id => dispatch((0,_store_cart__WEBPACK_IMPORTED_MODULE_2__.removeFromCart)(id))
+    removeFromCart: id => dispatch((0,_store_cart__WEBPACK_IMPORTED_MODULE_2__.removeFromCart)(id)),
+    fetchCart: _store_cart__WEBPACK_IMPORTED_MODULE_2__._fetchCart
   };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps)(ItemInCart));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapState, mapDispatchToProps)(ItemInCart));
 
 /***/ }),
 
@@ -12648,26 +12633,15 @@ const loadCurrentItem = item => {
 
 const _addToCart = (userId, itemId) => {
   return async dispatch => {
-    await axios__WEBPACK_IMPORTED_MODULE_0___default().post(`/api/addtocart/${userId}/${itemId}`);
-    const wine = (await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/wines/${itemId}`)).data;
-    console.log('ADD TO CAR THUNK', wine);
-    dispatch(addToCart(wine));
-  };
-}; // export const _addToCart = (item) => {
-//     return async(dispatch) => {
-//         const cart = (await axios.post(`/api/addusercart/${orderItem.userId}`)).data
-//         // dispatch(addToCart(orderItem.ItemId));
-//         dispatch(addToCart(cart));
-//     }
-// };
-// export const _adjustQty = (qty) => {
-//     return async(dispatch) => {
-//         const cart = (await axios.put(`/api/usercart/${orderItem.userId}`)).data
-//         dispatch(adjustQty(qty));
-//         // dispatch(addToCart(cart));
-//     }
-// };
+    const orderItemId = (await axios__WEBPACK_IMPORTED_MODULE_0___default().post(`/api/addtocart/${userId}/${itemId}`)).data.id;
+    const orderItem = (await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/orderitem/${orderItemId}`)).data; //const wine = (await axios.get(`/api/wines/${itemId}`)).data
 
+    console.log('I AM ORDER ITEM ID---->', orderItemId);
+    console.log('CREATED Order Item--->', orderItem); //console.log('ADD TO CAR THUNK', wine)
+
+    dispatch(addToCart(orderItem));
+  };
+};
 const _fetchCart = userId => {
   return async dispatch => {
     try {
@@ -12694,28 +12668,9 @@ const cartReducer = (state = INITIAL_STATE, action) => {
       };
 
     case ADD_TO_CART:
-      // Get Item data from wines array
-      // const item = state.wines.find(
-      //     wine => wine.id === action.payload.id
-      // );
-      const item = action.item;
-      console.log('HOW STATE LOOKS', { ...state,
-        cart: [...state.cart, action.item]
-      }); // Check if Item is in cart already
-      // const inCart = state.cart.find((item) =>
-      //     item.id === action.payload.id ? true : false
-      // );
-
+      console.log('ADD TO CART');
       return { ...state,
-        cart: [...state.cart, action.item] // item
-        // cart: inCart
-        //     ? state.cart.map((item) =>
-        //         item.id === action.payload.id
-        //             ? { ...item, qty: item.qty + 1 }
-        //             : item
-        //     )
-        //     : [...state.cart, { ...item, qty: 1 }],
-
+        cart: [...state.cart, action.item]
       };
 
     case REMOVE_FROM_CART:

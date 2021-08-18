@@ -14,8 +14,8 @@ class App extends Component {
   }
   componentDidUpdate(prevProps){
     if (prevProps.auth.id !== this.props.auth.id){
-      console.log('AUTH ID ---->',this.props.auth.id)
-      console.log('runnnnn')
+      //console.log('AUTH ID ---->',this.props.auth.id)
+      //console.log('runnnnn')
       this.props.fetchCart(this.props.auth.id);
     }
   }
