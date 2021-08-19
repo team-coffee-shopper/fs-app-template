@@ -6,6 +6,7 @@ import Cart from './components/Cart'
 import Products from './components/Products'
 import Home from './components/Home';
 import {me} from './store'
+import SingleProduct from './components/SingleProduct';
 
 /**
  * COMPONENT
@@ -22,10 +23,11 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-            <Route path="/" exact component={Home} />
+            <Route path="/" exact component={ Home } />
             {/* <Redirect to="/home" /> */}
-            <Route path="/cart" component={Cart} />
-            <Route path="/products" component={Products} />
+            <Route path="/cart" component={ Cart } />
+            <Route path="/products/:id" exact component={ SingleProduct } />
+            <Route path="/products" component={ Products } />
             <Redirect to='/' />
         </Switch>
       ) : (

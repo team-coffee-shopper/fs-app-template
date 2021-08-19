@@ -5,6 +5,7 @@ import { fetchWines } from '../store/wines'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 import { _addToCart } from '../store/cart'
+import { Link } from 'react-router-dom'
 
 class Products extends Component {
     constructor() {
@@ -21,11 +22,14 @@ class Products extends Component {
                         wines.map(wine => {
                             return (
                                 <div className="wine-card-inner" key= {wine.id}>
+                                   
                                     <div className="top" >
+                                    <Link to={`/products/${wine.id}`}>
                                         <div className="img"  style={{ 
   backgroundImage: `url(${wine.imageUrl})`
   }}>
                                         </div>
+                                        </Link>
                                     </div>
                                     <div className="bottom">
                                         <div className="row">
@@ -49,6 +53,7 @@ class Products extends Component {
 
                                         </div>
                                     </div>
+                                   
                                 </div>
                             )
                         })

@@ -25,7 +25,7 @@ const Wine = db.define('wine', {
         type: DECIMAL
     },
     score: {
-        type: DECIMAL
+        type: INTEGER
     },
     link: {
         type: STRING

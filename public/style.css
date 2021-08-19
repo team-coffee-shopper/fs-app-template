@@ -2,35 +2,37 @@
 body {
   font-family: neue-haas-unica, sans-serif;
   font-weight: 100;
-  
 }
 a {
   text-decoration: none;
 }
-
 label {
   display: block;
 }
-
 nav a {
   display: inline-block;
   margin: 1em;
 }
-
 form div {
   margin: 1em;
   display: inline-block;
 }
+.container {
+  margin: auto;
+}
+h1 {
+  margin-bottom: 0.8em;
+}
 /*---------END GLOBAL STYLES---------*/
-
 
 /*---------NAV--------- */
 .nav-outer {
   background-color: #080808;
 }
 .navbar {
-  padding: 0 6em;
+  padding: 0 3em !important;
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%);
+  border-bottom: 1px #80808052 solid;
 }
 .logo img {
   max-width: 70px;
@@ -80,17 +82,17 @@ span.items-in-cart {
 .navbar a::after{
   content: "";
     position: absolute;
-    top: 157%;
+    top: 171%;
     left: 0;
     width: 100%;
     height: 3px;
     opacity: 0;
-    background: #9e9e9e;
+    background: #f17c7b;
     transform: translateY(-12px);
     transition: height 0.3s, opacity 0.3s, transform 0.3s;
 }
 .navbar a:hover:after{
-    height: 7px;
+    height: 10px;
     opacity: 1;
     transform: translateY(0);
 }
@@ -105,14 +107,32 @@ span.items-in-cart {
 /*---------HOME PAGE STYLES---------*/
 .container.homepage {
   background-image: url(/assets/landing-page-backgound.jpg);
-  height: calc(100vh - 318px);
+  height: calc(100vh - 10em);
   overflow: auto;
   position: relative;
   min-width: 100%;
-  background-size: 75%;
   background-repeat: no-repeat;
   background-color: black;
   background-position: right;
+  background-size: contain;
+  display: flex;
+  padding: 2em 13em;
+}
+span.color-peach {
+  color: #f69f9f;
+}
+.img-dynamic img {
+  max-width: 160px;
+  margin-top: 2em;
+}
+.container.homepage h2 {
+  margin-top: 1em;
+  font-weight: 100;
+}
+h4.user {
+  color: aliceblue;
+  font-style: italic;
+  font-weight: 100;
 }
 .info {
   /* border: 2px solid red; */
@@ -121,7 +141,41 @@ span.items-in-cart {
   font-family: 'Open Sans Condensed', sans-serif;
   position: absolute;
 }
+.rotate {
+  position: relative;
+  width: 160px;
+  height: 160px;
+}
+.rotate .bg {
+  background: url("../assets/enjoy-your-wine.png") no-repeat 50%/contain;
+  width: 100%; 
+  height: 100%;
+  margin-top: 2em;
+  position: absolute;
+  -webkit-animation: rotation 8s infinite linear;
+  transition: rotation 2s;
+}
+@-webkit-keyframes rotation {
+  from {
+      -webkit-transform: rotate(0deg);
+  }
+  to {
+      -webkit-transform: rotate(359deg);
+  }
+}
+.rotate .bg:hover {
+  -webkit-animation: none;
+  transition: animation 2s;
 
+}
+svg.svg-inline--fa.fa-long-arrow-alt-right.fa-w-14 {
+  position: absolute;
+  color: #f59393;
+  font-size: 40px;
+  right: 50%;
+  left: calc(50% + -14px);
+  top: calc(50% + 12px);
+}
 /*---------END HOME PAGE STYLES---------*/
 
 /*--------- LOGIN PAGE STYLES---------*/
@@ -199,18 +253,32 @@ span.items-in-cart {
 }
 .svg-inline--fa.fa-w-18 {
   width: 1.125em;
-  font-size: 18px;
+  font-size: 16px;
   color: #080808;
 }
 /*---------END PRODUCTS STYLES--------- */
 
 
 
-/*---------CART--------- */
-.container.outer {
-  margin: 3em 0;
-  padding: 2em 7em;
+/*---------SINGLE PRODUCTS STYLES--------- */
+
+.container.single-product-outer {
+  margin: auto;
 }
+.single-product-inner {
+  padding: 4em 0;
+}
+.single-product-inner img {
+  min-height: 330px;
+  box-shadow: 2px 4px 4px 3px #d0d0d087;
+  margin-bottom: 3em;
+}
+/*---------END SINGLE PRODUCTS STYLES--------- */
+
+
+
+/*---------CART--------- */
+
 .row.user-cart {
   margin-top: 2em 2em;
 }
@@ -261,6 +329,10 @@ button.primary:hover {
   color: black;
   border: 1px solid grey;
 }
+.container.outer {
+  margin: auto;
+  padding: 3em 0;
+}
 /*---------END CART--------- */
 
 
@@ -273,6 +345,7 @@ button.primary:hover {
   font-size:15px;
   line-height:24px;
   color:#737373;
+  border-top: 1px #80808052 solid;
 }
 .site-footer hr
 {
@@ -435,7 +508,7 @@ button.primary:hover {
 /*---------MEDIA QUERIES---------*/
 @media screen and (min-width: 1200px) {
   .container {
-    max-width: 1300px !important;
+    /* max-width: 1300px !important; */
   }
 }
 /*---------END MEDIA QUERIES---------*/

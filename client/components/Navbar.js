@@ -26,7 +26,7 @@ const Navbar = (props) => {
             <Link to="/products">Shop</Link>
           </div>
           <div className="col-sm-4 text-md-center logo">     
-              <Link to="/"><img src="../assets/logo.png"></img></Link>
+              <Link to="/"><img src="../assets/spilled-wine-logo.png"></img></Link>
           </div>
           <div className="col-sm-4 text-md-right">
             <Link to="/cart"> 

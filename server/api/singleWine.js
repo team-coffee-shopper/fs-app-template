@@ -6,8 +6,8 @@ module.exports = router
 router.get('/:id', async(req, res, next) =>{
   const id = req.params.id
   try {
-    const wine = await Wine.findByPk(id)
-    res.send(wine)
+    const singleWine = await Wine.findByPk(id)
+    res.send(singleWine)
   } catch(err){
     next(err)
   }
