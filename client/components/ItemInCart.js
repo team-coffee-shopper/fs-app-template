@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { adjustQty, removeFromCart, _fetchCart } from "../store/cart";
+import { adjustQty, _removeFromCart, _fetchCart } from "../store/cart";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBan } from '@fortawesome/free-solid-svg-icons'
+
 
 const ItemInCart = (props) => {
   const { cart,  adjustQty, removeFromCart} = props
@@ -18,10 +19,6 @@ const ItemInCart = (props) => {
         setInput(evt.target.value);
         adjustQty(orderItem.wine.id, evt.target.value);
     };
-
-
-    //onsole.log('CARTTT @ ItemCART', cart.cart)
-    
    
     return (
         <div className="itemInner">
@@ -43,7 +40,7 @@ const ItemInCart = (props) => {
                       <p>{orderItem.wine.price}</p>
                     </div>
                     <div className="col-md-4 text-right">
-                       <button onClick={() => removeFromCart(orderItem.wine.id)}> <FontAwesomeIcon icon={ faBan } />  </button>
+                       <button onClick={() => removeFromCart(orderItem.id)}> <FontAwesomeIcon icon={ faBan } />  </button>
                     </div>    
                     <div>
                    </div> 
@@ -65,7 +62,7 @@ const mapState = (state) =>{
 const mapDispatchToProps = (dispatch) => {
     return {
         adjustQty: (id, value) => dispatch(adjustQty(id, value)),
-        removeFromCart: (id) => dispatch(removeFromCart(id)),
+        removeFromCart: (id) => dispatch(_removeFromCart(id)),
         fetchCart: _fetchCart
     };
 };

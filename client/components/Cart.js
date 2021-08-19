@@ -23,6 +23,7 @@ const Cart = (props) => {
         let price = 0; 
 
         cart.cart.forEach((item) => {
+            //console.log('CURRENT ITEM---->', item)
             items += item.qty;
             price += item.qty * item.price;
         });
@@ -31,9 +32,6 @@ const Cart = (props) => {
         setTotalPrice(price);
     }, [props.auth]);
     // [cart.cart, totalPrice, totalQty, setTotalPrice, setTotalQty]);
-
-
-
     // console.log('yo')
     console.log('CART @ Cart.js: ', cart)
 
@@ -81,7 +79,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-    fetchCart: _fetchCart
+    fetchCart: _fetchCart,
 }
 
 // {

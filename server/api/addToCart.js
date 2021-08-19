@@ -15,7 +15,7 @@ router.post('/:userId/:itemId', async (req, res, next)=>{
       }, 
       raw: true
     })
-    console.log('I AM ORDERRRRRR', order)
+    //console.log('I AM ORDERRRRRR', order)
     const orderItemCreated = await OrderItem.create({
       quantity: 1, 
       orderId: order.id,

@@ -12081,6 +12081,7 @@ const Cart = props => {
     let items = 0;
     let price = 0;
     cart.cart.forEach(item => {
+      //console.log('CURRENT ITEM---->', item)
       items += item.qty;
       price += item.qty * item.price;
     });
@@ -12286,8 +12287,7 @@ const ItemInCart = props => {
   const onChangeHandler = evt => {
     setInput(evt.target.value);
     adjustQty(orderItem.wine.id, evt.target.value);
-  }; //onsole.log('CARTTT @ ItemCART', cart.cart)
-
+  };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "itemInner"
@@ -12307,7 +12307,7 @@ const ItemInCart = props => {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, orderItem.wine.price)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "col-md-4 text-right"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-    onClick: () => removeFromCart(orderItem.wine.id)
+    onClick: () => removeFromCart(orderItem.id)
   }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__.FontAwesomeIcon, {
     icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__.faBan
   }), "  ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null))));
@@ -12323,7 +12323,7 @@ const mapState = state => {
 const mapDispatchToProps = dispatch => {
   return {
     adjustQty: (id, value) => dispatch((0,_store_cart__WEBPACK_IMPORTED_MODULE_2__.adjustQty)(id, value)),
-    removeFromCart: id => dispatch((0,_store_cart__WEBPACK_IMPORTED_MODULE_2__.removeFromCart)(id)),
+    removeFromCart: id => dispatch((0,_store_cart__WEBPACK_IMPORTED_MODULE_2__._removeFromCart)(id)),
     fetchCart: _store_cart__WEBPACK_IMPORTED_MODULE_2__._fetchCart
   };
 };
@@ -12664,6 +12664,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "removeFromCart": () => (/* binding */ removeFromCart),
 /* harmony export */   "adjustQty": () => (/* binding */ adjustQty),
 /* harmony export */   "loadCurrentItem": () => (/* binding */ loadCurrentItem),
+/* harmony export */   "_removeFromCart": () => (/* binding */ _removeFromCart),
 /* harmony export */   "_addToCart": () => (/* binding */ _addToCart),
 /* harmony export */   "_fetchCart": () => (/* binding */ _fetchCart),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -12691,8 +12692,8 @@ const fetchCart = cart => {
   };
 };
 const addToCart = item => {
-  console.log('addToCart: ACTION CREATOR ', item);
-  item = item[0];
+  //console.log('addToCart: ACTION CREATOR ', item)
+  //item = item[0]
   return {
     type: ADD_TO_CART,
     item
@@ -12701,9 +12702,7 @@ const addToCart = item => {
 const removeFromCart = itemID => {
   return {
     type: REMOVE_FROM_CART,
-    payload: {
-      id: itemID
-    }
+    id: itemID
   };
 };
 const adjustQty = (itemID, qty) => {
@@ -12722,22 +12721,25 @@ const loadCurrentItem = item => {
   };
 }; //**********THUNK **********//
 
+const _removeFromCart = orderId => {
+  return async dispatch => {
+    await axios__WEBPACK_IMPORTED_MODULE_0___default().delete(`/api/removeorderitem/${orderId}`);
+    console.log('DELETE ITEM THUNK');
+    dispatch(removeFromCart(orderId));
+  };
+};
 const _addToCart = (userId, itemId) => {
   return async dispatch => {
     const orderItemId = (await axios__WEBPACK_IMPORTED_MODULE_0___default().post(`/api/addtocart/${userId}/${itemId}`)).data.id;
-    const orderItem = (await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/orderitem/${orderItemId}`)).data; //const wine = (await axios.get(`/api/wines/${itemId}`)).data
-    //console.log('I AM ORDER ITEM ID---->', orderItemId)
-    //console.log('CREATED Order Item--->', orderItem)
-    //console.log('ADD TO CAR THUNK', wine)
-
+    const orderItem = (await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/orderitem/${orderItemId}`)).data[0];
     dispatch(addToCart(orderItem));
   };
 };
 const _fetchCart = userId => {
   return async dispatch => {
     try {
-      const cart = (await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/usercart/${userId}`)).data;
-      console.log('FETCH CART THUNK', cart);
+      const cart = (await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/usercart/${userId}`)).data; //console.log('FETCH CART THUNK',cart)
+
       dispatch(fetchCart(cart));
     } catch (err) {
       console.log(err);
@@ -12753,20 +12755,20 @@ const INITIAL_STATE = {
 const cartReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case FETCH_CART:
-      console.log('FETCHED CART');
+      //console.log('FETCHED CART')
       return { ...state,
         cart: action.cart
       };
 
     case ADD_TO_CART:
-      console.log('ADD TO CART');
+      //console.log('ADD TO CART')
       return { ...state,
         cart: [...state.cart, action.item]
       };
 
     case REMOVE_FROM_CART:
       return { ...state,
-        cart: state.cart.filter(item => item.id !== action.payload.id)
+        cart: state.cart.filter(item => item.id !== action.id)
       };
 
     case ADJUST_QTY:
@@ -12807,6 +12809,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "fetchWines": () => (/* reexport safe */ _wines__WEBPACK_IMPORTED_MODULE_4__.fetchWines),
 /* harmony export */   "_addToCart": () => (/* reexport safe */ _cart__WEBPACK_IMPORTED_MODULE_5__._addToCart),
 /* harmony export */   "_fetchCart": () => (/* reexport safe */ _cart__WEBPACK_IMPORTED_MODULE_5__._fetchCart),
+/* harmony export */   "_removeFromCart": () => (/* reexport safe */ _cart__WEBPACK_IMPORTED_MODULE_5__._removeFromCart),
 /* harmony export */   "addToCart": () => (/* reexport safe */ _cart__WEBPACK_IMPORTED_MODULE_5__.addToCart),
 /* harmony export */   "adjustQty": () => (/* reexport safe */ _cart__WEBPACK_IMPORTED_MODULE_5__.adjustQty),
 /* harmony export */   "fetchCart": () => (/* reexport safe */ _cart__WEBPACK_IMPORTED_MODULE_5__.fetchCart),

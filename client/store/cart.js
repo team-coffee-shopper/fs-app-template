@@ -22,8 +22,8 @@ export const fetchCart = (cart) => {
 }
 
 export const addToCart = (item) => {
-  console.log('addToCart: ACTION CREATOR ', item)
-  item = item[0]
+  //console.log('addToCart: ACTION CREATOR ', item)
+  //item = item[0]
   return {
     type: ADD_TO_CART,
     item
@@ -33,9 +33,7 @@ export const addToCart = (item) => {
 export const removeFromCart = (itemID) => {
     return {
         type: REMOVE_FROM_CART,
-        payload: {
-            id: itemID,
-        },
+        id: itemID,
     };
 };
 
@@ -58,14 +56,18 @@ export const loadCurrentItem = (item) => {
 
 //**********THUNK **********//
 
+export const _removeFromCart = (orderId) => {
+  return async (dispatch) => {
+      await axios.delete(`/api/removeorderitem/${orderId}`)
+      console.log('DELETE ITEM THUNK')
+      dispatch(removeFromCart(orderId))
+  }
+}
+
 export const _addToCart = (userId, itemId) => {
     return async(dispatch) => {
        const orderItemId = (await axios.post(`/api/addtocart/${userId}/${itemId}`)).data.id
-       const orderItem = (await axios.get(`/api/orderitem/${orderItemId}`)).data
-       //const wine = (await axios.get(`/api/wines/${itemId}`)).data
-       //console.log('I AM ORDER ITEM ID---->', orderItemId)
-        //console.log('CREATED Order Item--->', orderItem)
-        //console.log('ADD TO CAR THUNK', wine)
+       const orderItem = (await axios.get(`/api/orderitem/${orderItemId}`)).data[0]
         dispatch(addToCart(orderItem));
     }
 };
@@ -74,7 +76,7 @@ export const _fetchCart = (userId) => {
     return async(dispatch) => {
       try {
         const cart = (await axios.get(`/api/usercart/${userId}`)).data
-        console.log('FETCH CART THUNK',cart)
+        //console.log('FETCH CART THUNK',cart)
         dispatch(fetchCart(cart))
       } catch (err){
           console.log(err)
@@ -93,15 +95,15 @@ const INITIAL_STATE = {
 const cartReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case FETCH_CART:
-          console.log('FETCHED CART')
+          //console.log('FETCHED CART')
           return {...state, cart: action.cart }
         case ADD_TO_CART:
-            console.log('ADD TO CART')
+            //console.log('ADD TO CART')
             return { ...state, cart: [...state.cart, action.item ] };
         case REMOVE_FROM_CART:
             return {
-                ...state,
-                cart: state.cart.filter((item) => item.id !== action.payload.id),
+                ...state, 
+                cart: state.cart.filter((item) => item.id !== action.id)
             };
         case ADJUST_QTY:
             return {
