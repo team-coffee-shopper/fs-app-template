@@ -6,34 +6,35 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBan } from '@fortawesome/free-solid-svg-icons'
 
 const Cart = (props) => {
-
-    // useState(0) returns a tuple where the first parameter 
-    // count is the current state of the counter and setCounter 
-    // is the method that will allow us to update the counter's state.
-
-    const [totalPrice, setTotalPrice] = useState(0);
-    const [totalQty, setTotalQty] = useState(0);
     const { cart } = props; 
     
-    useEffect(() => {
-
+    const initialTotalPrice = () =>{
+        return cart.cart.reduce( (total, item)=>{
+            let itemPrice = Number(item.wine.price.slice(1))
+            total += itemPrice
+            console.log('running')
+            console.log(total)
+            return Math.ceil(total)
+        }, 0)
+    }
+    const [totalPrice, setTotalPrice] = useState( () => initialTotalPrice() );
+    
+    useEffect(() => { 
         if (props.auth.id) props.fetchCart(props.auth.id);
-        console.log('CAR COMP USE EFFECT --- IS RUNNING')
-        let items = 0;
-        let price = 0; 
-
-        cart.cart.forEach((item) => {
-            //console.log('CURRENT ITEM---->', item)
-            items += item.qty;
-            price += item.qty * item.price;
-        });
-
-        setTotalQty(items);
-        setTotalPrice(price);
-    }, [props.auth]);
-    // [cart.cart, totalPrice, totalQty, setTotalPrice, setTotalQty]);
-    // console.log('yo')
-    console.log('CART @ Cart.js: ', cart)
+        console.log('FETCHED CART onMount--->')
+    }, []);
+    useEffect( () => {
+        setTotalPrice( prevTotalPrice =>{
+            let total = cart.cart.reduce( (total, item)=>{
+                let itemPrice = Number(item.wine.price.slice(1))
+                total += itemPrice
+                console.log('running')
+                console.log(total)
+                return Math.ceil(total)
+            }, 0)
+            return total 
+        })
+    },  [cart.cart.length] )
 
     return (
         <div className="container outer">
@@ -81,9 +82,5 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     fetchCart: _fetchCart,
 }
-
-// {
-//     fetchCart: (userId) =>  dispatch(_fetchCart(userId))
-// }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

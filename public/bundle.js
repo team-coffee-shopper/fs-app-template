@@ -12067,30 +12067,37 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Cart = props => {
-  // useState(0) returns a tuple where the first parameter 
-  // count is the current state of the counter and setCounter 
-  // is the method that will allow us to update the counter's state.
-  const [totalPrice, setTotalPrice] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-  const [totalQty, setTotalQty] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
   const {
     cart
   } = props;
+
+  const initialTotalPrice = () => {
+    return cart.cart.reduce((total, item) => {
+      let itemPrice = Number(item.wine.price.slice(1));
+      total += itemPrice;
+      console.log('running');
+      console.log(total);
+      return Math.ceil(total);
+    }, 0);
+  };
+
+  const [totalPrice, setTotalPrice] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => initialTotalPrice());
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (props.auth.id) props.fetchCart(props.auth.id);
-    console.log('CAR COMP USE EFFECT --- IS RUNNING');
-    let items = 0;
-    let price = 0;
-    cart.cart.forEach(item => {
-      //console.log('CURRENT ITEM---->', item)
-      items += item.qty;
-      price += item.qty * item.price;
+    console.log('FETCHED CART onMount--->');
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    setTotalPrice(prevTotalPrice => {
+      let total = cart.cart.reduce((total, item) => {
+        let itemPrice = Number(item.wine.price.slice(1));
+        total += itemPrice;
+        console.log('running');
+        console.log(total);
+        return Math.ceil(total);
+      }, 0);
+      return total;
     });
-    setTotalQty(items);
-    setTotalPrice(price);
-  }, [props.auth]); // [cart.cart, totalPrice, totalQty, setTotalPrice, setTotalQty]);
-  // console.log('yo')
-
-  console.log('CART @ Cart.js: ', cart);
+  }, [cart.cart.length]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "container outer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, " CART "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -12123,10 +12130,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   fetchCart: _store_cart__WEBPACK_IMPORTED_MODULE_3__._fetchCart
-}; // {
-//     fetchCart: (userId) =>  dispatch(_fetchCart(userId))
-// }
-
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(Cart));
 
 /***/ }),
@@ -12480,8 +12484,8 @@ class Products extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       wines,
       auth,
       addToCart
-    } = this.props;
-    console.log('THIS IS MY PROPS', this.props);
+    } = this.props; //console.log('THIS IS MY PROPS',this.props)
+
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "container products-list"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, " Explore Our Products "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {

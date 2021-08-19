@@ -12,7 +12,7 @@ class Products extends Component {
     }
     render() {
         const { wines, auth, addToCart } = this.props;
-        console.log('THIS IS MY PROPS',this.props)
+        //console.log('THIS IS MY PROPS',this.props)
         return (
             <div className="container products-list">
                 <h2> Explore Our Products </h2>
