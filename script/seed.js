@@ -12,6 +12,9 @@ const apiKey = require('../secrets.js')
 const inStock = () => {
   return Math.floor(Math.random()*30 + 20)
 }
+const avRating = () => {
+  return Math.floor(Math.random()*2 + 4)
+}
 
 async function seed() {
   await db.sync({ force: true }) // clears db and matches models to tables
@@ -35,7 +38,7 @@ async function seed() {
     imageUrl: wine.imageUrl,
     averageRating: wine.averageRating,
     ratingCount: wine.ratingCount,
-    score: wine.score,
+    score: avRating(),
     link: wine.link,
     stock: inStock()
   })))
