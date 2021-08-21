@@ -27,7 +27,7 @@ const ItemInCart = (props) => {
               <h1>nooooo</h1> :
               cart.cart.map( orderItem =>(
                   <div key={ orderItem.id }>
-                    <div className="col-md-4 text-left">
+                    <div className="col-md-6 text-left">
                       <div className="col-md-6">
                         <img src={orderItem.wine.imageUrl} alt={orderItem.wine.title} />
                       </div>
@@ -36,10 +36,10 @@ const ItemInCart = (props) => {
                       </div>
                       
                     </div>
-                    <div className="col-md-4 text-center">
+                    <div className="col-md-3 text-center">
                       <p>{orderItem.wine.price}</p>
                     </div>
-                    <div className="col-md-4 text-right">
+                    <div className="col-md-3 text-right">
                        <button onClick={() => removeFromCart(orderItem.id)}> <FontAwesomeIcon icon={ faBan } />  </button>
                     </div>    
                     <div>

@@ -23,13 +23,6 @@ class SingleProduct extends Component {
                             <div className="img">
                                 <img src={ singleWine.imageUrl } />
                             </div>
-                            <div className="rating">
-                                <h4>Customers Rating</h4>
-                                { singleWine.ratingCount } people rated this wine. 
-                                <div className="score">
-                                    { singleWine.score }
-                                </div>
-                            </div>
                         </div>
                         <div className="col-6">
                             <h1> { singleWine.title } </h1> 

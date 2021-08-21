@@ -84,6 +84,13 @@ export const _fetchCart = (userId) => {
     }
 };
 
+export const _checkout = () => {
+    return async(dispatch) => {
+        const session = await axios.post('/create-checkout-session');
+        console.log('CHECKOUT THUNKKKK', session);
+    }
+}
+
 //*******CART REDUCER ********/
 
 const INITIAL_STATE = {

@@ -9,6 +9,11 @@ router.use('/usercart', require('./userCart'))
 router.use('/addtocart', require('./addToCart'))
 router.use('/orderitem', require('./orderItemId'))
 router.use('/removeorderitem/', require('./removeOrderItem'))
+router.use('/charge', require('./charge'))
+router.use('receipt', require('./receipt'))
+
+// //Checkout Session
+// router.use('/checkoutsession', require('./checkoutSession'))
 
 //Admin Routes
 router.use('/adminallusers', require('./adminAllUsers'))
