@@ -12786,7 +12786,9 @@ const AuthForm = props => {
     onSubmit: handleSubmit,
     name: name
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "loginEdit"
+    className: "row login"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "col-md-6"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Login to Your Account"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Explore our non-alcoholic wine selection and make a puchace by logging in to your account."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     class: "form-outline"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
@@ -12815,15 +12817,18 @@ const AuthForm = props => {
       border: 'black solid 1px',
       padding: '2rem 4rem'
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "loginEdit"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     type: "submit",
+    className: "primary",
     style: {
-      color: 'grey',
-      backgroundColor: 'white',
       border: 'black solid 1px',
-      padding: '2rem 4rem'
+      padding: '2rem 3rem'
     }
-  }, displayName, " in to Your Account \u279F ")), error && error.response && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, " ", error.response.data, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, displayName, " in to Your Account \u279F "), error && error.response && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, " ", error.response.data, " "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "col-md-6"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "google"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_google_login__WEBPACK_IMPORTED_MODULE_3___default()), {
     clientId: "1058116808147-savon90a46im5l8hv4jr18gqmmj7147e.apps.googleusercontent.com",
@@ -12831,7 +12836,7 @@ const AuthForm = props => {
     onSuccess: responseGoogle,
     onFailure: responseGoogle,
     cookiePolicy: 'single_host_origin'
-  }))));
+  }))))));
 };
 /**
  * CONTAINER
@@ -13586,7 +13591,7 @@ const Navbar = props => {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
     to: "/"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-    src: "../assets/logo.png"
+    src: "../assets/spilled-wine-logo.png"
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "col-sm-4 text-md-right"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {

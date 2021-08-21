@@ -14,8 +14,12 @@ nav a {
   margin: 1em;
 }
 form div {
-  margin: 1em;
+  padding: 1em;
   display: inline-block;
+  margin: auto;
+}
+.row.login {
+  padding: 4em 11em;
 }
 .container {
   margin: auto;
@@ -182,11 +186,14 @@ svg.svg-inline--fa.fa-long-arrow-alt-right.fa-w-14 {
 
 
 .loginEdit {
-  height: calc(100vh - 318px);
+  
   overflow: auto;
   color: white;
   background-color: black;
   min-width: 100%;
+}
+.row.login h1, .row.login p {
+  color: white;
 }
 
 
@@ -590,6 +597,7 @@ button.primary:hover {
   border-radius:4px;
   transition: box-shadow 0.15s;
 }
+
 
 
 
